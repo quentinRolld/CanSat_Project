@@ -1,0 +1,3 @@
+../Core/Src/servo.c:47:6:servoSetPositionLeft	16	static
+../Core/Src/servo.c:71:6:servoSetPositionRight	16	static
+../Core/Src/servo.c:98:6:choice_direction_intensity	16	static

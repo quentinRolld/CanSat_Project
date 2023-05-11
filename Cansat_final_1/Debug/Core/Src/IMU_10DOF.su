@@ -1,0 +1,12 @@
+../Core/Src/IMU_10DOF.c:26:6:Init	40	static
+../Core/Src/IMU_10DOF.c:165:6:Measure_T	40	static
+../Core/Src/IMU_10DOF.c:187:6:Measure_A	64	static
+../Core/Src/IMU_10DOF.c:237:6:Measure_Vitesse_angulaire	64	static
+../Core/Src/IMU_10DOF.c:295:6:Measure_M	88	static
+../Core/Src/IMU_10DOF.c:348:6:Noise_G	104	static
+../Core/Src/IMU_10DOF.c:393:6:Calib_gyro	72	static
+../Core/Src/IMU_10DOF.c:425:6:Average	96	static
+../Core/Src/IMU_10DOF.c:451:8:convDegre	24	static
+../Core/Src/IMU_10DOF.c:468:8:Maximum	40	static
+../Core/Src/IMU_10DOF.c:485:8:Minimum	40	static
+../Core/Src/IMU_10DOF.c:502:6:Calib_mag	7376	static
