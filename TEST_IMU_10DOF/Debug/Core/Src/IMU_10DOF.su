@@ -1,8 +1,0 @@
-../Core/Src/IMU_10DOF.c:20:6:Init	40	static
-../Core/Src/IMU_10DOF.c:68:6:Measure_T	40	static
-../Core/Src/IMU_10DOF.c:84:6:Measure_A	88	static
-../Core/Src/IMU_10DOF.c:132:6:Measure_Gyro	88	static
-../Core/Src/IMU_10DOF.c:178:6:Measure_M	72	static
-../Core/Src/IMU_10DOF.c:230:6:Noise_G	104	static
-../Core/Src/IMU_10DOF.c:270:6:Calib_Gyro	80	static
-../Core/Src/IMU_10DOF.c:296:6:Average	104	static
