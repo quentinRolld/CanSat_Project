@@ -64,8 +64,8 @@ all: main-build
 main-build: Cansat_final_1.elf secondary-outputs
 
 # Tool invocations
-Cansat_final_1.elf Cansat_final_1.map: $(OBJS) $(USER_OBJS) /Users/quentinrolland/Desktop/ensea/3eme_annee/CanSat/software/repertoire_MCU/Cansat_final_1/STM32F411RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "Cansat_final_1.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"/Users/quentinrolland/Desktop/ensea/3eme_annee/CanSat/software/repertoire_MCU/Cansat_final_1/STM32F411RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Cansat_final_1.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Cansat_final_1.elf Cansat_final_1.map: $(OBJS) $(USER_OBJS) /Users/quentinrolland/Documents/GitHub/CanSat_Project/Cansat_final_1/STM32F411RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "Cansat_final_1.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"/Users/quentinrolland/Documents/GitHub/CanSat_Project/Cansat_final_1/STM32F411RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Cansat_final_1.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
