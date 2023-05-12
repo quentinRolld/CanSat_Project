@@ -332,7 +332,7 @@ Discarded input sections
  .debug_macro   0x0000000000000000      0x341 ./Core/Src/compas.o
  .debug_macro   0x0000000000000000      0x19b ./Core/Src/compas.o
  .debug_line    0x0000000000000000      0x88e ./Core/Src/compas.o
- .debug_str     0x0000000000000000    0x8b9e4 ./Core/Src/compas.o
+ .debug_str     0x0000000000000000    0x8b9cc ./Core/Src/compas.o
  .comment       0x0000000000000000       0x51 ./Core/Src/compas.o
  .debug_frame   0x0000000000000000       0x34 ./Core/Src/compas.o
  .ARM.attributes
@@ -437,7 +437,7 @@ Discarded input sections
  .debug_macro   0x0000000000000000      0x126 ./Core/Src/data.o
  .debug_macro   0x0000000000000000       0x58 ./Core/Src/data.o
  .debug_line    0x0000000000000000      0x71f ./Core/Src/data.o
- .debug_str     0x0000000000000000    0x88642 ./Core/Src/data.o
+ .debug_str     0x0000000000000000    0x8862a ./Core/Src/data.o
  .comment       0x0000000000000000       0x51 ./Core/Src/data.o
  .debug_frame   0x0000000000000000       0x30 ./Core/Src/data.o
  .ARM.attributes
@@ -835,11 +835,121 @@ Discarded input sections
  .debug_macro   0x0000000000000000      0x126 ./Core/Src/pololu_sds01a.o
  .debug_macro   0x0000000000000000       0x58 ./Core/Src/pololu_sds01a.o
  .debug_line    0x0000000000000000      0x71c ./Core/Src/pololu_sds01a.o
- .debug_str     0x0000000000000000    0x8847d ./Core/Src/pololu_sds01a.o
+ .debug_str     0x0000000000000000    0x88465 ./Core/Src/pololu_sds01a.o
  .comment       0x0000000000000000       0x51 ./Core/Src/pololu_sds01a.o
  .debug_frame   0x0000000000000000       0x34 ./Core/Src/pololu_sds01a.o
  .ARM.attributes
                 0x0000000000000000       0x34 ./Core/Src/pololu_sds01a.o
+ .group         0x0000000000000000        0xc ./Core/Src/servo.o
+ .group         0x0000000000000000        0xc ./Core/Src/servo.o
+ .group         0x0000000000000000        0xc ./Core/Src/servo.o
+ .group         0x0000000000000000        0xc ./Core/Src/servo.o
+ .group         0x0000000000000000        0xc ./Core/Src/servo.o
+ .group         0x0000000000000000        0xc ./Core/Src/servo.o
+ .group         0x0000000000000000        0xc ./Core/Src/servo.o
+ .group         0x0000000000000000        0xc ./Core/Src/servo.o
+ .group         0x0000000000000000        0xc ./Core/Src/servo.o
+ .group         0x0000000000000000        0xc ./Core/Src/servo.o
+ .group         0x0000000000000000        0xc ./Core/Src/servo.o
+ .group         0x0000000000000000        0xc ./Core/Src/servo.o
+ .group         0x0000000000000000        0xc ./Core/Src/servo.o
+ .group         0x0000000000000000        0xc ./Core/Src/servo.o
+ .group         0x0000000000000000        0xc ./Core/Src/servo.o
+ .group         0x0000000000000000        0xc ./Core/Src/servo.o
+ .group         0x0000000000000000        0xc ./Core/Src/servo.o
+ .group         0x0000000000000000        0xc ./Core/Src/servo.o
+ .group         0x0000000000000000        0xc ./Core/Src/servo.o
+ .group         0x0000000000000000        0xc ./Core/Src/servo.o
+ .group         0x0000000000000000        0xc ./Core/Src/servo.o
+ .group         0x0000000000000000        0xc ./Core/Src/servo.o
+ .group         0x0000000000000000        0xc ./Core/Src/servo.o
+ .group         0x0000000000000000        0xc ./Core/Src/servo.o
+ .group         0x0000000000000000        0xc ./Core/Src/servo.o
+ .group         0x0000000000000000        0xc ./Core/Src/servo.o
+ .group         0x0000000000000000        0xc ./Core/Src/servo.o
+ .group         0x0000000000000000        0xc ./Core/Src/servo.o
+ .group         0x0000000000000000        0xc ./Core/Src/servo.o
+ .group         0x0000000000000000        0xc ./Core/Src/servo.o
+ .group         0x0000000000000000        0xc ./Core/Src/servo.o
+ .group         0x0000000000000000        0xc ./Core/Src/servo.o
+ .group         0x0000000000000000        0xc ./Core/Src/servo.o
+ .group         0x0000000000000000        0xc ./Core/Src/servo.o
+ .group         0x0000000000000000        0xc ./Core/Src/servo.o
+ .group         0x0000000000000000        0xc ./Core/Src/servo.o
+ .group         0x0000000000000000        0xc ./Core/Src/servo.o
+ .group         0x0000000000000000        0xc ./Core/Src/servo.o
+ .group         0x0000000000000000        0xc ./Core/Src/servo.o
+ .group         0x0000000000000000        0xc ./Core/Src/servo.o
+ .group         0x0000000000000000        0xc ./Core/Src/servo.o
+ .group         0x0000000000000000        0xc ./Core/Src/servo.o
+ .group         0x0000000000000000        0xc ./Core/Src/servo.o
+ .group         0x0000000000000000        0xc ./Core/Src/servo.o
+ .text          0x0000000000000000        0x0 ./Core/Src/servo.o
+ .data          0x0000000000000000        0x0 ./Core/Src/servo.o
+ .bss           0x0000000000000000        0x0 ./Core/Src/servo.o
+ .rodata        0x0000000000000000       0x6e ./Core/Src/servo.o
+ .text.servoSetPositionLeft
+                0x0000000000000000       0x58 ./Core/Src/servo.o
+ .text.servoSetPositionRight
+                0x0000000000000000       0x58 ./Core/Src/servo.o
+ .text.choice_direction_intensity
+                0x0000000000000000       0xb4 ./Core/Src/servo.o
+ .debug_info    0x0000000000000000      0x2a4 ./Core/Src/servo.o
+ .debug_abbrev  0x0000000000000000      0x102 ./Core/Src/servo.o
+ .debug_aranges
+                0x0000000000000000       0x30 ./Core/Src/servo.o
+ .debug_ranges  0x0000000000000000       0x20 ./Core/Src/servo.o
+ .debug_macro   0x0000000000000000      0x24b ./Core/Src/servo.o
+ .debug_macro   0x0000000000000000      0xa78 ./Core/Src/servo.o
+ .debug_macro   0x0000000000000000      0x2a1 ./Core/Src/servo.o
+ .debug_macro   0x0000000000000000       0x2e ./Core/Src/servo.o
+ .debug_macro   0x0000000000000000       0x28 ./Core/Src/servo.o
+ .debug_macro   0x0000000000000000       0x22 ./Core/Src/servo.o
+ .debug_macro   0x0000000000000000       0x8e ./Core/Src/servo.o
+ .debug_macro   0x0000000000000000       0x51 ./Core/Src/servo.o
+ .debug_macro   0x0000000000000000      0x103 ./Core/Src/servo.o
+ .debug_macro   0x0000000000000000       0x6a ./Core/Src/servo.o
+ .debug_macro   0x0000000000000000      0x1df ./Core/Src/servo.o
+ .debug_macro   0x0000000000000000       0x1c ./Core/Src/servo.o
+ .debug_macro   0x0000000000000000       0x22 ./Core/Src/servo.o
+ .debug_macro   0x0000000000000000       0xd9 ./Core/Src/servo.o
+ .debug_macro   0x0000000000000000     0x102d ./Core/Src/servo.o
+ .debug_macro   0x0000000000000000      0x11f ./Core/Src/servo.o
+ .debug_macro   0x0000000000000000     0xb953 ./Core/Src/servo.o
+ .debug_macro   0x0000000000000000       0x6d ./Core/Src/servo.o
+ .debug_macro   0x0000000000000000     0x367e ./Core/Src/servo.o
+ .debug_macro   0x0000000000000000      0x174 ./Core/Src/servo.o
+ .debug_macro   0x0000000000000000       0x5c ./Core/Src/servo.o
+ .debug_macro   0x0000000000000000      0x447 ./Core/Src/servo.o
+ .debug_macro   0x0000000000000000      0x9fe ./Core/Src/servo.o
+ .debug_macro   0x0000000000000000      0x115 ./Core/Src/servo.o
+ .debug_macro   0x0000000000000000      0x11b ./Core/Src/servo.o
+ .debug_macro   0x0000000000000000       0xa5 ./Core/Src/servo.o
+ .debug_macro   0x0000000000000000      0x15f ./Core/Src/servo.o
+ .debug_macro   0x0000000000000000      0x287 ./Core/Src/servo.o
+ .debug_macro   0x0000000000000000       0x5f ./Core/Src/servo.o
+ .debug_macro   0x0000000000000000      0x236 ./Core/Src/servo.o
+ .debug_macro   0x0000000000000000      0x132 ./Core/Src/servo.o
+ .debug_macro   0x0000000000000000      0x264 ./Core/Src/servo.o
+ .debug_macro   0x0000000000000000       0x2e ./Core/Src/servo.o
+ .debug_macro   0x0000000000000000      0x1b5 ./Core/Src/servo.o
+ .debug_macro   0x0000000000000000       0x22 ./Core/Src/servo.o
+ .debug_macro   0x0000000000000000       0xd6 ./Core/Src/servo.o
+ .debug_macro   0x0000000000000000      0x11a ./Core/Src/servo.o
+ .debug_macro   0x0000000000000000       0x85 ./Core/Src/servo.o
+ .debug_macro   0x0000000000000000       0x89 ./Core/Src/servo.o
+ .debug_macro   0x0000000000000000      0x8e6 ./Core/Src/servo.o
+ .debug_macro   0x0000000000000000       0x47 ./Core/Src/servo.o
+ .debug_macro   0x0000000000000000      0x295 ./Core/Src/servo.o
+ .debug_macro   0x0000000000000000      0x126 ./Core/Src/servo.o
+ .debug_macro   0x0000000000000000       0x58 ./Core/Src/servo.o
+ .debug_macro   0x0000000000000000       0x10 ./Core/Src/servo.o
+ .debug_line    0x0000000000000000      0x82d ./Core/Src/servo.o
+ .debug_str     0x0000000000000000    0x8854b ./Core/Src/servo.o
+ .comment       0x0000000000000000       0x51 ./Core/Src/servo.o
+ .debug_frame   0x0000000000000000       0x7c ./Core/Src/servo.o
+ .ARM.attributes
+                0x0000000000000000       0x34 ./Core/Src/servo.o
  .group         0x0000000000000000        0xc ./Core/Src/stm32f4xx_hal_msp.o
  .group         0x0000000000000000        0xc ./Core/Src/stm32f4xx_hal_msp.o
  .group         0x0000000000000000        0xc ./Core/Src/stm32f4xx_hal_msp.o
@@ -5284,6 +5394,7 @@ LOAD ./Core/Src/data.o
 LOAD ./Core/Src/freertos.o
 LOAD ./Core/Src/main.o
 LOAD ./Core/Src/pololu_sds01a.o
+LOAD ./Core/Src/servo.o
 LOAD ./Core/Src/stm32f4xx_hal_msp.o
 LOAD ./Core/Src/stm32f4xx_hal_timebase_tim.o
 LOAD ./Core/Src/stm32f4xx_it.o
@@ -6593,54 +6704,53 @@ LOAD /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.id
  .debug_line    0x0000000000017749      0x906 ./Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.o
  .debug_line    0x000000000001804f      0x969 ./Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.o
 
-.debug_str      0x0000000000000000    0x9be25
- .debug_str     0x0000000000000000    0x8d76b ./Core/Src/IMU_10DOF.o
-                                      0x8da8c (size before relaxing)
- .debug_str     0x000000000008d76b     0x4205 ./Core/Src/freertos.o
-                                      0x8e029 (size before relaxing)
- .debug_str     0x0000000000091970     0x2c9d ./Core/Src/main.o
-                                      0x94756 (size before relaxing)
- .debug_str     0x000000000009460d      0x45f ./Core/Src/stm32f4xx_hal_msp.o
-                                      0x8906d (size before relaxing)
- .debug_str     0x0000000000094a6c       0xf7 ./Core/Src/stm32f4xx_hal_timebase_tim.o
-                                      0x88e16 (size before relaxing)
- .debug_str     0x0000000000094b63       0xe7 ./Core/Src/stm32f4xx_it.o
-                                      0x88c7a (size before relaxing)
- .debug_str     0x0000000000094c4a     0x15b7 ./Core/Src/syscalls.o
-                                       0x8a9b (size before relaxing)
- .debug_str     0x0000000000096201       0x6b ./Core/Src/sysmem.o
-                                       0x5dd7 (size before relaxing)
- .debug_str     0x000000000009626c       0xdb ./Core/Src/system_stm32f4xx.o
-                                      0x88487 (size before relaxing)
- .debug_str     0x0000000000096347       0x36 ./Core/Startup/startup_stm32f411retx.o
-                                         0x99 (size before relaxing)
- .debug_str     0x000000000009637d      0x5c4 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o
+.debug_str      0x0000000000000000    0x9be70
+ .debug_str     0x0000000000000000    0x8d753 ./Core/Src/IMU_10DOF.o
+                                      0x8da74 (size before relaxing)
+ .debug_str     0x000000000008d753     0x4205 ./Core/Src/freertos.o
+                                      0x8e011 (size before relaxing)
+ .debug_str     0x0000000000091958     0x2c9d ./Core/Src/main.o
+                                      0x9473e (size before relaxing)
+ .debug_str     0x00000000000945f5      0x45f ./Core/Src/stm32f4xx_hal_msp.o
+                                      0x89055 (size before relaxing)
+ .debug_str     0x0000000000094a54       0xf7 ./Core/Src/stm32f4xx_hal_timebase_tim.o
+                                      0x88dfe (size before relaxing)
+ .debug_str     0x0000000000094b4b       0xe7 ./Core/Src/stm32f4xx_it.o
+                                      0x88c62 (size before relaxing)
+ .debug_str     0x0000000000094c32     0x15b7 ./Core/Src/syscalls.o
+                                       0x8a83 (size before relaxing)
+ .debug_str     0x00000000000961e9       0x6b ./Core/Src/sysmem.o
+                                       0x5dbf (size before relaxing)
+ .debug_str     0x0000000000096254       0xdb ./Core/Src/system_stm32f4xx.o
+                                      0x8846f (size before relaxing)
+ .debug_str     0x000000000009632f       0x99 ./Core/Startup/startup_stm32f411retx.o
+ .debug_str     0x00000000000963c8      0x5c4 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o
                                       0x88eb3 (size before relaxing)
- .debug_str     0x0000000000096941      0x31d ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o
+ .debug_str     0x000000000009698c      0x31d ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o
                                       0x88bd4 (size before relaxing)
- .debug_str     0x0000000000096c5e      0x31d ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.o
+ .debug_str     0x0000000000096ca9      0x31d ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.o
                                       0x8888f (size before relaxing)
- .debug_str     0x0000000000096f7b      0x121 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.o
+ .debug_str     0x0000000000096fc6      0x121 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.o
                                       0x88602 (size before relaxing)
- .debug_str     0x000000000009709c      0xa42 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.o
+ .debug_str     0x00000000000970e7      0xa42 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.o
                                       0x89445 (size before relaxing)
- .debug_str     0x0000000000097ade      0x1dd ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.o
+ .debug_str     0x0000000000097b29      0x1dd ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.o
                                       0x888bb (size before relaxing)
- .debug_str     0x0000000000097cbb      0xe36 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.o
+ .debug_str     0x0000000000097d06      0xe36 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.o
                                       0x897ef (size before relaxing)
- .debug_str     0x0000000000098af1      0x503 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.o
+ .debug_str     0x0000000000098b3c      0x503 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.o
                                       0x8900b (size before relaxing)
- .debug_str     0x0000000000098ff4      0x5d5 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.o
+ .debug_str     0x000000000009903f      0x5d5 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.o
                                       0x88e48 (size before relaxing)
- .debug_str     0x00000000000995c9      0xafd ./Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.o
+ .debug_str     0x0000000000099614      0xafd ./Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.o
                                        0xe71d (size before relaxing)
- .debug_str     0x000000000009a0c6      0x12d ./Middlewares/Third_Party/FreeRTOS/Source/list.o
+ .debug_str     0x000000000009a111      0x12d ./Middlewares/Third_Party/FreeRTOS/Source/list.o
                                        0xa6c2 (size before relaxing)
- .debug_str     0x000000000009a1f3     0x1182 ./Middlewares/Third_Party/FreeRTOS/Source/tasks.o
+ .debug_str     0x000000000009a23e     0x1182 ./Middlewares/Third_Party/FreeRTOS/Source/tasks.o
                                        0xcdfa (size before relaxing)
- .debug_str     0x000000000009b375      0x783 ./Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.o
+ .debug_str     0x000000000009b3c0      0x783 ./Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.o
                                        0x9fdc (size before relaxing)
- .debug_str     0x000000000009baf8      0x32d ./Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.o
+ .debug_str     0x000000000009bb43      0x32d ./Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.o
                                        0xb004 (size before relaxing)
 
 .comment        0x0000000000000000       0x50
