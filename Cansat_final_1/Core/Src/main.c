@@ -29,6 +29,7 @@
 #include "data.h"
 #include "types.h"
 #include "servo.h"
+#include "gps.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -50,12 +51,22 @@ I2C_HandleTypeDef hi2c1;
 
 TIM_HandleTypeDef htim3;
 
+UART_HandleTypeDef huart1;
 UART_HandleTypeDef huart2;
 
+
+/****** task handlers *******/
 osThreadId defaultTaskHandle;
+TaskHandle_t pxGPS_Handler;
+
 /* USER CODE BEGIN PV */
 
 int Drop_flag = 0; // flag that indicates if the Cansat probe has been launch, in order to begin the missions
+
+/******* GPS ********/
+char uart_gps_rx[1];
+char uart_pc_tx[1];
+/********************/
 
 /* USER CODE END PV */
 
@@ -65,6 +76,7 @@ static void MX_GPIO_Init(void);
 static void MX_USART2_UART_Init(void);
 static void MX_I2C1_Init(void);
 static void MX_TIM3_Init(void);
+static void MX_USART1_UART_Init(void);
 void StartDefaultTask(void const * argument);
 
 /* USER CODE BEGIN PFP */
@@ -73,10 +85,23 @@ void StartDefaultTask(void const * argument);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+
 int __io_putchar(int ch) {
 HAL_UART_Transmit(&huart2, (uint8_t *)&ch, 1, HAL_MAX_DELAY);
 return ch;
 }
+
+
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){ // fonction de callback de l'UART
+
+	if(&huart == &huart1){
+
+		HAL_UART_Receive_IT(&huart1, &uart_gps_rx, 1);
+		xTaskNotifyFromISR(GPS_data_reading, pdTRUE, pdTRUE, pdTRUE);
+
+	}
+}
+
 
 /* USER CODE END 0 */
 
@@ -111,7 +136,18 @@ int main(void)
   MX_USART2_UART_Init();
   MX_I2C1_Init();
   MX_TIM3_Init();
+  MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
+
+  printf("------------------------\r\n");
+  printf("------------------------\r\n");
+  printf("------------------------\r\n");
+  printf("------------------------\r\n");
+  printf("initialisation du CanSat\r\n");
+  printf("------------------------\r\n");
+  printf("------------------------\r\n");
+  printf("------------------------\r\n");
+  printf("------------------------\r\n");
 
     int x=0;
     int i=0;
@@ -123,6 +159,8 @@ int main(void)
     * ******** INIT MPU-9250 (IMU_10DOF) *********
     * ********                           *********
     */
+
+   printf("initialisation de l'IMU \r\n \r\n");
 
    // Initialisation du capteur MPU-9250
 
@@ -237,7 +275,10 @@ int main(void)
   defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
-  /* add threads, ... */
+
+  xTaskCreate(GPS_data_reading, "GPS Task", 500, NULL, osPriorityAboveNormal, &pxGPS_Handler);
+
+
   /* USER CODE END RTOS_THREADS */
 
   /* Start scheduler */
@@ -381,6 +422,39 @@ static void MX_TIM3_Init(void)
 
   /* USER CODE END TIM3_Init 2 */
   HAL_TIM_MspPostInit(&htim3);
+
+}
+
+/**
+  * @brief USART1 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_USART1_UART_Init(void)
+{
+
+  /* USER CODE BEGIN USART1_Init 0 */
+
+  /* USER CODE END USART1_Init 0 */
+
+  /* USER CODE BEGIN USART1_Init 1 */
+
+  /* USER CODE END USART1_Init 1 */
+  huart1.Instance = USART1;
+  huart1.Init.BaudRate = 9600;
+  huart1.Init.WordLength = UART_WORDLENGTH_8B;
+  huart1.Init.StopBits = UART_STOPBITS_1;
+  huart1.Init.Parity = UART_PARITY_NONE;
+  huart1.Init.Mode = UART_MODE_TX_RX;
+  huart1.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  huart1.Init.OverSampling = UART_OVERSAMPLING_16;
+  if (HAL_UART_Init(&huart1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN USART1_Init 2 */
+
+  /* USER CODE END USART1_Init 2 */
 
 }
 

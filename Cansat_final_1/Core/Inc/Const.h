@@ -147,6 +147,13 @@
 #define AK8963_ASAY      0x11  // Fuse ROM y-axis sensitivity adjustment value
 #define AK8963_ASAZ      0x12  // Fuse ROM z-axis sensitivity adjustment value
 
+
+/***************************************************
+ *                      GPS
+ **************************************************/
+
+#define GPS_TRAME_SIZE 1000
+
 /***************************************************
  *      CONSTANTS DEFINITION
  **************************************************/
