@@ -1,3 +1,4 @@
-../Core/Src/servo.c:48:6:servoSetPositionLeft	16	static
-../Core/Src/servo.c:72:6:servoSetPositionRight	16	static
-../Core/Src/servo.c:99:6:choice_direction_intensity	16	static
+../Core/Src/servo.c:72:6:servoSetPositionLeft	16	static
+../Core/Src/servo.c:96:6:servoSetPositionRight	16	static
+../Core/Src/servo.c:123:6:choice_direction_intensity	16	static
+../Core/Src/servo.c:166:6:declenchement_structure_gonflable	16	static

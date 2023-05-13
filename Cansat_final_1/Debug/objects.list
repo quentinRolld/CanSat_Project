@@ -2,6 +2,7 @@
 "./Core/Src/compas.o"
 "./Core/Src/data.o"
 "./Core/Src/freertos.o"
+"./Core/Src/gps.o"
 "./Core/Src/main.o"
 "./Core/Src/pololu_sds01a.o"
 "./Core/Src/servo.o"

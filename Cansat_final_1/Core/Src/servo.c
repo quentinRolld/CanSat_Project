@@ -6,6 +6,23 @@
  */
 #include "main.h"
 #include "servo.h"
+#include "Const.h"
+#include "stdio.h"
+#include <math.h>
+#include "IMU_10DOF.h"
+#include "data.h"
+#include "types.h"
+
+/************* external variable ****************/
+
+extern I2C_HandleTypeDef hi2c1;
+
+extern TIM_HandleTypeDef htim3;
+
+extern UART_HandleTypeDef huart2;
+
+
+/********** Define MISSION PRINCIPALE ***********/
 
 #define POSITION_0_LEFT 80
 #define POSITION_1_LEFT 110
@@ -21,6 +38,13 @@
 #define teta_low 30  //valeur en degrés
 #define teta_high 100 //valeur en degrés
 
+
+/********** Define MISSION SECONDAIRE ***********/
+
+#define SERVO_MIN_PULSE_WIDTH 1000
+#define SERVO_MAX_PULSE_WIDTH 2000
+
+/********** fonctions MISSION PRINCIPALE ***********/
 
 
 /*void servoSetAngleLeft(unsigned int angle){
@@ -134,6 +158,33 @@ void choice_direction_intensity(unsigned int delta_teta){
 	}
 
 }
+
+
+/********** fonctions MISSION SECONDAIRE ***********/
+
+
+void declenchement_structure_gonflable(){
+
+	  int x;
+	  TIM1->CCR1 = 1000;
+
+	  HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
+
+	  for(x=1000;x<2500;x=x+1){
+	  			  __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, x);
+
+	  		  }
+
+}
+
+
+
+
+
+
+
+
+
 
 
 

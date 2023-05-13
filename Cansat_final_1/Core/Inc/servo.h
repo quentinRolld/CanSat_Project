@@ -17,6 +17,7 @@ void servoSetAngleRight(unsigned int angle);
 void servoSetPositionLeft (int position);
 void servoSetPositionRight (int position);
 void choice_direction_intensity(unsigned int delta_teta);
+void declenchement_structure_gonflable();
 
 
 
