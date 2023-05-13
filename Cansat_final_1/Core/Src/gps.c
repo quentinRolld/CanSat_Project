@@ -16,6 +16,9 @@
 #include "stdlib.h"
 #include "string.h"
 #include "gps.h"
+#include "FreeRTOS.h"
+#include "FreeRTOSConfig.h"
+#include "task.h"
 
 
 extern UART_HandleTypeDef huart1;
@@ -42,9 +45,6 @@ double altitude;
 
 char satellites[2];
 
-int i = 0;
-int k = 0;
-
 int first_data = 0;
 int data_rdy = 0;
 char uart_tx_buffer[128];
@@ -55,12 +55,14 @@ char uart_tx_buffer[128];
 
 void GPS_data_reading(){
 
-	while(1){
+	int i = 0;
+	int n = 0;
 
+	for(;;){
 
+		ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
 
-
-
+		while(n<5){
 
 	  		if(data_rdy == 1){
 	  				for(int j = 0; j<=47;j++){
@@ -110,11 +112,11 @@ void GPS_data_reading(){
 	  				}
 	  		}
 	  		if(uart_gps_rx[0]==10){
-	  			HAL_UART_Transmit(&huart2, "\r\n", 2, HAL_MAX_DELAY); //Arrangement de la trame
+	  			//HAL_UART_Transmit(&huart2, "\r\n", 2, HAL_MAX_DELAY); //Arrangement de la trame
 	  		}
 	  		else{
 	  			uart_pc_tx[0]=uart_gps_rx[0];
-	  			HAL_UART_Transmit(&huart2, uart_pc_tx, 1, HAL_MAX_DELAY);
+	  			//HAL_UART_Transmit(&huart2, uart_pc_tx, 1, HAL_MAX_DELAY);
 	  			coordonnees[i] = uart_pc_tx[0]; //On copie ce qui passe dans l'UART dans un tableau coordonnees[i].
 	  			if(i >= 4){
 	  				if(strncmp("OK*35",&coordonnees[i-4],5) == 0){
@@ -135,7 +137,8 @@ void GPS_data_reading(){
 	  				}
 	  			}
 	  			else i++;
+	  			n++ ;
 	  		}
-
+		}
 	}
 }

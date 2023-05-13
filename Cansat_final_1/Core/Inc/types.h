@@ -23,7 +23,10 @@ typedef enum {
 
 typedef struct TypeDataGPS{
 
-
+	double latitude;
+	double longitude;
+	double altitude;
+	double nombre_de_satellites_en_vue;
 
 }TypeDataGPS;
 

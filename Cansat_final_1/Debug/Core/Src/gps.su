@@ -1,1 +1,1 @@
-../Core/Src/gps.c:56:6:GPS_data_reading	56	static
+../Core/Src/gps.c:56:6:GPS_data_reading	64	static
