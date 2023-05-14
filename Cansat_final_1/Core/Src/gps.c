@@ -62,7 +62,7 @@ void GPS_data_reading(){
 
 		ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
 
-		while(n<5){
+		while(n<6){
 
 	  		if(data_rdy == 1){
 	  				for(int j = 0; j<=47;j++){

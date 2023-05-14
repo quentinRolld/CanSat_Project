@@ -8,6 +8,6 @@
 #ifndef INC_POLOLU_SDS01A_H_
 #define INC_POLOLU_SDS01A_H_
 
-void Drop_detection(int Drop_flag);
+void Task_Drop_detection(void * pvParameters);
 
 #endif /* INC_POLOLU_SDS01A_H_ */

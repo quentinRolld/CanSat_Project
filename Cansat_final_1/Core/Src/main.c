@@ -30,6 +30,8 @@
 #include "types.h"
 #include "servo.h"
 #include "gps.h"
+#include "compas.h"
+#include "pololu_sds01a.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -54,12 +56,13 @@ TIM_HandleTypeDef htim3;
 UART_HandleTypeDef huart1;
 UART_HandleTypeDef huart2;
 
-
-/****** task handlers *******/
 osThreadId defaultTaskHandle;
-TaskHandle_t pxGPS_Handler;
-
 /* USER CODE BEGIN PV */
+
+/******* Task Handler ********/
+TaskHandle_t pxGPS_Handler;
+TaskHandle_t pxDrop_detection;
+/****************************/
 
 int Drop_flag = 0; // flag that indicates if the Cansat probe has been launch, in order to begin the missions
 
@@ -276,8 +279,14 @@ int main(void)
 
   /* USER CODE BEGIN RTOS_THREADS */
 
+  /******** GPS Task **********/
+
   xTaskCreate(GPS_data_reading, "GPS Task", 500, NULL, osPriorityAboveNormal, &pxGPS_Handler);
 
+  /******** pololu Task *********/
+
+  //xTaskCreate(Task_Drop_detection, "Drop detection task", 500, NULL, osPriorityAboveNormal, &pxDrop_detection);
+  // Je l'importe dans le IRQ Handler du blue button comme ça on ne crée la tâche que sur pression du blue button
 
   /* USER CODE END RTOS_THREADS */
 
@@ -527,6 +536,10 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+  /* EXTI interrupt init*/
+  HAL_NVIC_SetPriority(EXTI15_10_IRQn, 5, 0);
+  HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
 
 }
 

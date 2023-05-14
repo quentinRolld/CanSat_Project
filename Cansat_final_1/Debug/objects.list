@@ -1,3 +1,4 @@
+"./Core/Src/Cansat_Task.o"
 "./Core/Src/IMU_10DOF.o"
 "./Core/Src/compas.o"
 "./Core/Src/data.o"

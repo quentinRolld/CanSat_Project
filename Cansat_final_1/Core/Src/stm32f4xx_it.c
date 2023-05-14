@@ -22,6 +22,10 @@
 #include "stm32f4xx_it.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "cmsis_os.h"
+#include "FreeRTOS.h"
+#include "FreeRTOSConfig.h"
+#include "pololu_sds01a.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -60,6 +64,8 @@ extern UART_HandleTypeDef huart1;
 extern TIM_HandleTypeDef htim1;
 
 /* USER CODE BEGIN EV */
+
+extern TaskHandle_t pxDrop_detection;
 
 /* USER CODE END EV */
 
@@ -201,6 +207,22 @@ void USART1_IRQHandler(void)
   /* USER CODE BEGIN USART1_IRQn 1 */
 
   /* USER CODE END USART1_IRQn 1 */
+}
+
+/**
+  * @brief This function handles EXTI line[15:10] interrupts.
+  */
+void EXTI15_10_IRQHandler(void)
+{
+  /* USER CODE BEGIN EXTI15_10_IRQn 0 */
+
+  /* USER CODE END EXTI15_10_IRQn 0 */
+  HAL_GPIO_EXTI_IRQHandler(B1_Pin);
+  /* USER CODE BEGIN EXTI15_10_IRQn 1 */
+
+  xTaskCreate(Task_Drop_detection, "Drop detection task", 500, NULL, osPriorityAboveNormal, &pxDrop_detection);
+
+  /* USER CODE END EXTI15_10_IRQn 1 */
 }
 
 /* USER CODE BEGIN 1 */
