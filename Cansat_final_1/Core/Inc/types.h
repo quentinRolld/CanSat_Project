@@ -69,6 +69,7 @@ typedef struct TypeMagnetometer{
 	double offset[3];
 	double coeff[3];
 	double mag_calibrated[3];
+	double degree_angle;
 
 } TypeMagnetometer;
 

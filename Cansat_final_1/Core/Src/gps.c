@@ -24,6 +24,8 @@
 extern UART_HandleTypeDef huart1;
 extern UART_HandleTypeDef huart2;
 
+extern TaskHandle_t pxGPS_Handler;
+
 extern char uart_gps_rx[1];
 extern char uart_pc_tx[1];
 //uint8_t it_rx_gps=0;
@@ -140,5 +142,6 @@ void GPS_data_reading(){
 	  			n++ ;
 	  		}
 		}
+		vTaskDelete(pxGPS_Handler);
 	}
 }

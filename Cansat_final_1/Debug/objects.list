@@ -1,6 +1,6 @@
 "./Core/Src/Cansat_Task.o"
 "./Core/Src/IMU_10DOF.o"
-"./Core/Src/compas.o"
+"./Core/Src/compass.o"
 "./Core/Src/data.o"
 "./Core/Src/freertos.o"
 "./Core/Src/gps.o"

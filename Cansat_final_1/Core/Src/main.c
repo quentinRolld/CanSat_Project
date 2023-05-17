@@ -17,6 +17,7 @@
   */
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
+#include <compass.h>
 #include "main.h"
 #include "cmsis_os.h"
 
@@ -30,7 +31,6 @@
 #include "types.h"
 #include "servo.h"
 #include "gps.h"
-#include "compas.h"
 #include "pololu_sds01a.h"
 /* USER CODE END Includes */
 

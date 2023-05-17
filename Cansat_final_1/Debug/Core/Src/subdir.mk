@@ -7,7 +7,7 @@
 C_SRCS += \
 ../Core/Src/Cansat_Task.c \
 ../Core/Src/IMU_10DOF.c \
-../Core/Src/compas.c \
+../Core/Src/compass.c \
 ../Core/Src/data.c \
 ../Core/Src/freertos.c \
 ../Core/Src/gps.c \
@@ -24,7 +24,7 @@ C_SRCS += \
 OBJS += \
 ./Core/Src/Cansat_Task.o \
 ./Core/Src/IMU_10DOF.o \
-./Core/Src/compas.o \
+./Core/Src/compass.o \
 ./Core/Src/data.o \
 ./Core/Src/freertos.o \
 ./Core/Src/gps.o \
@@ -41,7 +41,7 @@ OBJS += \
 C_DEPS += \
 ./Core/Src/Cansat_Task.d \
 ./Core/Src/IMU_10DOF.d \
-./Core/Src/compas.d \
+./Core/Src/compass.d \
 ./Core/Src/data.d \
 ./Core/Src/freertos.d \
 ./Core/Src/gps.d \
@@ -63,7 +63,7 @@ Core/Src/%.o Core/Src/%.su: ../Core/Src/%.c Core/Src/subdir.mk
 clean: clean-Core-2f-Src
 
 clean-Core-2f-Src:
-	-$(RM) ./Core/Src/Cansat_Task.d ./Core/Src/Cansat_Task.o ./Core/Src/Cansat_Task.su ./Core/Src/IMU_10DOF.d ./Core/Src/IMU_10DOF.o ./Core/Src/IMU_10DOF.su ./Core/Src/compas.d ./Core/Src/compas.o ./Core/Src/compas.su ./Core/Src/data.d ./Core/Src/data.o ./Core/Src/data.su ./Core/Src/freertos.d ./Core/Src/freertos.o ./Core/Src/freertos.su ./Core/Src/gps.d ./Core/Src/gps.o ./Core/Src/gps.su ./Core/Src/main.d ./Core/Src/main.o ./Core/Src/main.su ./Core/Src/pololu_sds01a.d ./Core/Src/pololu_sds01a.o ./Core/Src/pololu_sds01a.su ./Core/Src/servo.d ./Core/Src/servo.o ./Core/Src/servo.su ./Core/Src/stm32f4xx_hal_msp.d ./Core/Src/stm32f4xx_hal_msp.o ./Core/Src/stm32f4xx_hal_msp.su ./Core/Src/stm32f4xx_hal_timebase_tim.d ./Core/Src/stm32f4xx_hal_timebase_tim.o ./Core/Src/stm32f4xx_hal_timebase_tim.su ./Core/Src/stm32f4xx_it.d ./Core/Src/stm32f4xx_it.o ./Core/Src/stm32f4xx_it.su ./Core/Src/syscalls.d ./Core/Src/syscalls.o ./Core/Src/syscalls.su ./Core/Src/sysmem.d ./Core/Src/sysmem.o ./Core/Src/sysmem.su ./Core/Src/system_stm32f4xx.d ./Core/Src/system_stm32f4xx.o ./Core/Src/system_stm32f4xx.su
+	-$(RM) ./Core/Src/Cansat_Task.d ./Core/Src/Cansat_Task.o ./Core/Src/Cansat_Task.su ./Core/Src/IMU_10DOF.d ./Core/Src/IMU_10DOF.o ./Core/Src/IMU_10DOF.su ./Core/Src/compass.d ./Core/Src/compass.o ./Core/Src/compass.su ./Core/Src/data.d ./Core/Src/data.o ./Core/Src/data.su ./Core/Src/freertos.d ./Core/Src/freertos.o ./Core/Src/freertos.su ./Core/Src/gps.d ./Core/Src/gps.o ./Core/Src/gps.su ./Core/Src/main.d ./Core/Src/main.o ./Core/Src/main.su ./Core/Src/pololu_sds01a.d ./Core/Src/pololu_sds01a.o ./Core/Src/pololu_sds01a.su ./Core/Src/servo.d ./Core/Src/servo.o ./Core/Src/servo.su ./Core/Src/stm32f4xx_hal_msp.d ./Core/Src/stm32f4xx_hal_msp.o ./Core/Src/stm32f4xx_hal_msp.su ./Core/Src/stm32f4xx_hal_timebase_tim.d ./Core/Src/stm32f4xx_hal_timebase_tim.o ./Core/Src/stm32f4xx_hal_timebase_tim.su ./Core/Src/stm32f4xx_it.d ./Core/Src/stm32f4xx_it.o ./Core/Src/stm32f4xx_it.su ./Core/Src/syscalls.d ./Core/Src/syscalls.o ./Core/Src/syscalls.su ./Core/Src/sysmem.d ./Core/Src/sysmem.o ./Core/Src/sysmem.su ./Core/Src/system_stm32f4xx.d ./Core/Src/system_stm32f4xx.o ./Core/Src/system_stm32f4xx.su
 
 .PHONY: clean-Core-2f-Src
 
