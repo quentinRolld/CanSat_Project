@@ -116,6 +116,25 @@ int main(void)
 {
   /* USER CODE BEGIN 1 */
 
+	  /******************************************
+	  *          création structure
+	  /******************************************/
+
+	  TypeDataCansat *pDataCansat;
+	  pDataCansat = DATA_getDataCansat();
+
+	  /***********************************************************
+	  *            entrée des données GPS de la cible
+	  /***********************************************************/
+
+	  //Position GPS cible : 43°13'18.7"N 0°03'10.0"W  --> données telles que décrites dans le règlement 2023
+
+	  pDataCansat->GPS.latitude_Target = 43.2218611;
+	  pDataCansat->GPS.longitude_Target = -0.05277777777777778;
+
+
+
+
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/

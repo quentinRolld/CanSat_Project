@@ -1,1 +1,2 @@
-../Core/Src/compass.c:12:7:magnetic_field_to_degree	32	static
+../Core/Src/compass.c:14:7:magnetic_field_to_degree	40	static
+../Core/Src/compass.c:35:8:Delta_theta_calculation	40	static

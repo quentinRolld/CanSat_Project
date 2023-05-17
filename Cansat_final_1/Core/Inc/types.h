@@ -18,15 +18,24 @@ typedef enum {
 	BROKEN,
 }TypeState;
 
+typedef enum {
+	FLOOR,
+	TAKE_OFF,
+	DROPED,
+	LANDED,
+}TypeStage;
+
 
 /********* GPS ************/
 
 typedef struct TypeDataGPS{
 
-	double latitude;
-	double longitude;
-	double altitude;
+	double latitude_Cansat;
+	double longitude_Cansat;
+	double altitude_Cansat;
 	double nombre_de_satellites_en_vue;
+	double latitude_Target;
+	double longitude_Target;
 
 }TypeDataGPS;
 
