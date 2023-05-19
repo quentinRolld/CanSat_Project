@@ -61,8 +61,11 @@
 TypeDataCansat pDataCansat;
 
 /******* Task Handler ********/
-TaskHandle_t pxGPS_Handler;
-TaskHandle_t pxDrop_detection;
+extern TaskHandle_t pxGPS_Handler;
+extern TaskHandle_t pxDrop_detection;
+extern TaskHandle_t pxLancement_Cansat;
+extern TaskHandle_t pxMesure_M;
+extern TaskHandle_t pxeCompass;
 /****************************/
 
 int Drop_flag = 0; // flag that indicates if the Cansat probe has been launch, in order to begin the missions
@@ -97,8 +100,6 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){ // fonction de callback
 		HAL_UART_Receive_IT(&huart1, &uart_gps_rx, 1);
 
 		portYIELD_FROM_ISR(Task_GPS_data_reading);
-
-		portYIELD_FROM_ISR(Task_lancement_Cansat);
 
 	}
 }
@@ -257,6 +258,7 @@ int main(void)
      * ********                    *********
      */
 
+    HAL_UART_Receive_IT(&huart1, uart_gps_rx, 1);
 
     /**********                              *********
      * ******** INITIALISATION Pololu_sds01a *********
@@ -271,7 +273,7 @@ int main(void)
 
 
 
-
+  vTaskStartScheduler();
   /* USER CODE END 2 */
 
   /* Call init function for freertos objects (in freertos.c) */

@@ -25,7 +25,8 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "Cansat_Task.h"
+#include "pololu_sds01a.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -45,6 +46,14 @@
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN Variables */
+
+/******* Task Handler ********/
+TaskHandle_t pxGPS_Handler;
+TaskHandle_t pxDrop_detection;
+TaskHandle_t pxLancement_Cansat;
+TaskHandle_t pxMesure_M;
+TaskHandle_t pxeCompass;
+/****************************/
 
 /* USER CODE END Variables */
 osThreadId defaultTaskHandle;
@@ -106,7 +115,11 @@ void MX_FREERTOS_Init(void) {
   defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
-  /* add threads, ... */
+
+xTaskCreate(Task_Drop_detection, "Drop detection", 500, NULL, osPriorityAboveNormal, &pxDrop_detection);
+
+xTaskCreate(Task_GPS_data_reading, "Lecture des donnees GPS", 500, NULL, osPriorityAboveNormal, &pxGPS_Handler);
+
   /* USER CODE END RTOS_THREADS */
 
 }

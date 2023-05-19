@@ -9,18 +9,25 @@
 
 #include "main.h"
 #include "cmsis_os.h"
+#include "Cansat_Task.h"
+
+#include "FreeRTOS.h"
+#include "task.h"
+#include "cmsis_os.h"
+#include "stdlib.h"
 
 extern int Drop_flag;
 extern TaskHandle_t pxDrop_detection;
+extern TaskHandle_t pxLancement_Cansat;
 
 /**
  	 * @brief Drop detection
  	 * @Note Cette fonction permet de detecter le largage du Cansat depuis le tube de largage.
  	 * Lorsque le capteur ne detecte plus le tube, il passe gpio_value à 1. La fonction est appelée
  	 * périodiquement toutes les 500ms à partir du moment où le bluebutton a été pressé et jusqu'à
- 	 * ce que le capteur ne détecte plus le tube de largage.
-	 * @param Drop_flag Drapeau qui permet d'indiquer que le Cansat a été largué, ce qui permet de
-	 * lancer le démarrage des missions.
+ 	 * ce que le capteur ne détecte plus le tube de largage. Une notification est envoyée à la tâche
+ 	 * Task_lancement_Cansat, ce qui permet de lancer le démarrage des missions.
+	 * @param Drop_flag Drapeau qui permet d'indiquer que le Cansat a été largué
 	 * @retval None
 	 */
 
@@ -42,7 +49,8 @@ void Task_Drop_detection(void * pvParameters)
 		if(gpio_value == 1)
 		{
 			Drop_flag = 1;
-			vTaskDelete(pxDrop_detection);
+			xTaskCreate(Task_lancement_Cansat, "Lancement du Cansat", 500, NULL, osPriorityHigh, &pxLancement_Cansat);
+			vTaskDelete(NULL);
 		}
 
 	}

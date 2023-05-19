@@ -101,9 +101,9 @@ void GPS_data_reading(TypeDataCansat pData){
 	  				float deg_long = atof(long3);
 	  				float reste_long = atof(long7); //conversion du char[long] en float[long]
 
-	  				latitude = deg_lat + (reste_lat/60); //latitude convertie
-	  				longitude = deg_long + (reste_long/60); //longitude convertie
-	  				altitude = atof(altitude_data); // altitude convertie
+	  				pData.GPS.latitude_Cansat = deg_lat + (reste_lat/60); //latitude convertie
+	  				pData.GPS.longitude_Cansat = deg_long + (reste_long/60); //longitude convertie
+	  				pData.GPS.altitude_Cansat = atof(altitude_data); // altitude convertie
 
 	  				//nombre de satellites
 	  				for(int k = 0; k<2;k++){
