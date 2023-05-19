@@ -55,14 +55,11 @@ char uart_tx_buffer[128];
 
 
 
-void GPS_data_reading(){
+void GPS_data_reading(TypeDataCansat pData){
 
 	int i = 0;
 	int n = 0;
 
-	for(;;){
-
-		ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
 
 		while(n<6){
 
@@ -141,7 +138,5 @@ void GPS_data_reading(){
 	  			else i++;
 	  			n++ ;
 	  		}
-		}
-		vTaskDelete(pxGPS_Handler);
 	}
 }

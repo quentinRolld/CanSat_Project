@@ -18,6 +18,51 @@
 #include "compass.h"
 
 
+extern TypeDataCansat pDataCansat;
+
+/********* PV GPS **********/
+extern UART_HandleTypeDef huart1;
+extern UART_HandleTypeDef huart2;
+extern char uart_gps_rx[1];
+extern char uart_pc_tx[1];
+
+
+void Task_lancement_Cansat(){
+
+	for(;;){
+
+
+
+	}
+}
+
+
+void Task_Mesure_M(){
+
+	for(;;){
+
+		//Measure_M(&hi2c1, double* mag, double* offset, double* coeff);
+	}
+}
+
+void Task_Mesure_AetG(){
+
+	for(;;){
+
+
+	}
+}
+
+void Task_GPS_data_reading(){
+
+	for(;;){
+
+		HAL_UART_Receive_IT(&huart1, uart_gps_rx, 1);
+		GPS_data_reading(pDataCansat);
+
+	}
+}
+
 
 
 void Task_eCompass(){
@@ -26,7 +71,7 @@ void Task_eCompass(){
 	for(;;){
 
 		//1. Récupération des données de champ magnétique
-		// Measure_M(&hi2c1, double* mag, double* offset, double* coeff);
+		//
 
 		//1 bis. compensation du tengage et du roulis pour le calcul du champ magnétique
 		// ---> Mesure gyro

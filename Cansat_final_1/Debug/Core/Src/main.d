@@ -1,5 +1,4 @@
-Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/compass.h \
- ../Core/Inc/types.h ../Core/Inc/main.h \
+Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
  ../Core/Inc/stm32f4xx_hal_conf.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h \
@@ -30,7 +29,6 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/compass.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
- ../Core/Inc/main.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h \
  ../Core/Inc/FreeRTOSConfig.h \
@@ -48,11 +46,11 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/compass.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h \
- ../Core/Inc/Const.h ../Core/Inc/IMU_10DOF.h ../Core/Inc/data.h \
+ ../Core/Inc/i2c.h ../Core/Inc/main.h ../Core/Inc/tim.h \
+ ../Core/Inc/usart.h ../Core/Inc/gpio.h ../Core/Inc/Const.h \
+ ../Core/Inc/IMU_10DOF.h ../Core/Inc/data.h ../Core/Inc/types.h \
  ../Core/Inc/types.h ../Core/Inc/servo.h ../Core/Inc/gps.h \
- ../Core/Inc/pololu_sds01a.h
-../Core/Inc/compass.h:
-../Core/Inc/types.h:
+ ../Core/Inc/pololu_sds01a.h ../Core/Inc/Cansat_Task.h
 ../Core/Inc/main.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 ../Core/Inc/stm32f4xx_hal_conf.h:
@@ -84,7 +82,6 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/compass.h \
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:
-../Core/Inc/main.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h:
 ../Core/Inc/FreeRTOSConfig.h:
@@ -102,10 +99,17 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/compass.h \
 ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h:
+../Core/Inc/i2c.h:
+../Core/Inc/main.h:
+../Core/Inc/tim.h:
+../Core/Inc/usart.h:
+../Core/Inc/gpio.h:
 ../Core/Inc/Const.h:
 ../Core/Inc/IMU_10DOF.h:
 ../Core/Inc/data.h:
 ../Core/Inc/types.h:
+../Core/Inc/types.h:
 ../Core/Inc/servo.h:
 ../Core/Inc/gps.h:
 ../Core/Inc/pololu_sds01a.h:
+../Core/Inc/Cansat_Task.h:
