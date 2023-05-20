@@ -49,6 +49,8 @@
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN PV */
 
+int it_rx_gps = 0;
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -220,18 +222,19 @@ void I2C1_ER_IRQHandler(void)
 void USART1_IRQHandler(void)
 {
   /* USER CODE BEGIN USART1_IRQn 0 */
-
+/*
 	BaseType_t higher_priority_task_woken = pdFALSE;
-
 	vTaskNotifyGiveFromISR(pxGPS_Handler,&higher_priority_task_woken);
-
+*/
 	HAL_UART_Receive_IT(&huart1, (uint8_t*)&uart_gps_rx, 1);
+
+	it_rx_gps = 1;
 
   /* USER CODE END USART1_IRQn 0 */
   HAL_UART_IRQHandler(&huart1);
   /* USER CODE BEGIN USART1_IRQn 1 */
 
-  portYIELD_FROM_ISR(higher_priority_task_woken);
+  //portYIELD_FROM_ISR(higher_priority_task_woken);
 
   /* USER CODE END USART1_IRQn 1 */
 }

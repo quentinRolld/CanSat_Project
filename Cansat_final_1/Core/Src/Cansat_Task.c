@@ -33,6 +33,8 @@ extern UART_HandleTypeDef huart2;
 extern char uart_gps_rx[1];
 extern char uart_pc_tx[1];
 
+extern int it_rx_gps;
+
 /******* Task Handler ********/
 extern TaskHandle_t pxGPS_Handler;
 extern TaskHandle_t pxDrop_detection;
@@ -59,10 +61,10 @@ void Task_lancement_Cansat(){
 void Task_Mesure_M(){
 
 	TickType_t xLastWakeTime;
-		const TickType_t xFrequency = 200;
+	const TickType_t xFrequency = 200;
 
-		// Initialise the xLastWakeTime variable with the current time.
-		xLastWakeTime = xTaskGetTickCount();
+  //Initialise the xLastWakeTime variable with the current time.
+	xLastWakeTime = xTaskGetTickCount();
 
 	for(;;){
 
@@ -85,15 +87,28 @@ void Task_Mesure_AetG(){
  */
 void Task_GPS_data_reading(){
 
+	int i = 0;
+	int gps_data_ready_flag = 0;
 	HAL_UART_Receive_IT(&huart1, (uint8_t*)&uart_gps_rx, 1);
+
+	TickType_t xLastWakeTime;
+	const TickType_t xFrequency = 20;
+
+  //Initialise the xLastWakeTime variable with the current time.
+	xLastWakeTime = xTaskGetTickCount();
 
 	for(;;){
 
-		ulTaskNotifyTake(pdTRUE, 500);
+		//ulTaskNotifyTake(pdTRUE, 500);
 
-		GPS_data_reading(pDataCansat);
-		printf("GPS read ***************** \r\n");
+		vTaskDelayUntil( &xLastWakeTime, xFrequency );
 
+		GPS_data_reading(pDataCansat, i, gps_data_ready_flag);
+
+		if(gps_data_ready_flag){
+			printf("GPS read ***************** \r\n");
+			printf("latitude : %lf N, longitude : %lf E, altitude : %lf m \r\n", pDataCansat.GPS.latitude_Cansat, pDataCansat.GPS.longitude_Cansat, pDataCansat.GPS.altitude_Cansat);
+		}
 	}
 }
 

@@ -19,7 +19,8 @@
 #include "FreeRTOS.h"
 #include "FreeRTOSConfig.h"
 #include "task.h"
-
+#include <stdlib.h>
+#include "stdio.h"
 
 extern UART_HandleTypeDef huart1;
 extern UART_HandleTypeDef huart2;
@@ -28,7 +29,7 @@ extern TaskHandle_t pxGPS_Handler;
 
 extern char uart_gps_rx[1];
 extern char uart_pc_tx[1];
-//uint8_t it_rx_gps=0;
+extern int it_rx_gps;
 
 char coordonnees[GPS_TRAME_SIZE];
 char longitude_data[10];
@@ -55,14 +56,12 @@ char uart_tx_buffer[128];
 
 
 
-void GPS_data_reading(TypeDataCansat pData){
+void GPS_data_reading(TypeDataCansat pData, int i, int flag){
 
-	int i = 0;
-	int n = 0;
 
-		while(n<6){
-
+		if(it_rx_gps == 1){
 	  		if(data_rdy == 1){
+	  				flag = 1;
 	  				for(int j = 0; j<=47;j++){
 	  					position[j] = coordonnees[j+18]; //position[] comprend la latitude et la longitude telles que sur la trame reçue
 	  					//En effet, les coordonnes sont d'abord de cette forme : "$GNGGA,121933.000,4902.36627,N,00204.31287,E,1,05,13.3,0.0,M,0.0,M,,*4D"
@@ -110,11 +109,11 @@ void GPS_data_reading(TypeDataCansat pData){
 	  				}
 	  		}
 	  		if(uart_gps_rx[0]==10){
-	  			//HAL_UART_Transmit(&huart2, "\r\n", 2, HAL_MAX_DELAY); //Arrangement de la trame
+	  			//HAL_UART_Transmit(&huart2, (uint8_t*)"\r\n", 2, HAL_MAX_DELAY); //Arrangement de la trame
 	  		}
 	  		else{
 	  			uart_pc_tx[0]=uart_gps_rx[0];
-	  			//HAL_UART_Transmit(&huart2, uart_pc_tx, 1, HAL_MAX_DELAY);
+	  			HAL_UART_Transmit(&huart2, (uint8_t*)&uart_pc_tx, 1, HAL_MAX_DELAY);
 	  			coordonnees[i] = uart_pc_tx[0]; //On copie ce qui passe dans l'UART dans un tableau coordonnees[i].
 	  			if(i >= 4){
 	  				if(strncmp("OK*35",&coordonnees[i-4],5) == 0){
@@ -136,8 +135,10 @@ void GPS_data_reading(TypeDataCansat pData){
 	  			}
 	  			else i++;
 
-	  		}
-	  n++ ;
+
+		}
+		it_rx_gps = 0;
+
 	}
 
 }
