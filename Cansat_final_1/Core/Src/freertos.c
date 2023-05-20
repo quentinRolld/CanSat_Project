@@ -118,7 +118,7 @@ void MX_FREERTOS_Init(void) {
 
 xTaskCreate(Task_Drop_detection, "Drop detection", 500, NULL, osPriorityAboveNormal, &pxDrop_detection);
 
-xTaskCreate(Task_GPS_data_reading, "Lecture des donnees GPS", 500, NULL, osPriorityAboveNormal, &pxGPS_Handler);
+xTaskCreate(Task_GPS_data_reading, "Lecture des donnees GPS", 500, NULL, osPriorityHigh, &pxGPS_Handler);
 
   /* USER CODE END RTOS_THREADS */
 

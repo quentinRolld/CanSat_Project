@@ -15,6 +15,7 @@
 #include "task.h"
 #include "cmsis_os.h"
 #include "stdlib.h"
+#include <stdio.h>
 
 extern int Drop_flag;
 extern TaskHandle_t pxDrop_detection;
@@ -33,8 +34,9 @@ extern TaskHandle_t pxLancement_Cansat;
 
 void Task_Drop_detection(void * pvParameters)
 {
+	uint16_t gpio_value = 0;
 	TickType_t xLastWakeTime;
-	const TickType_t xFrequency = portTICK_PERIOD_MS/500;
+	const TickType_t xFrequency = 500;
 
 	// Initialise the xLastWakeTime variable with the current time.
 	xLastWakeTime = xTaskGetTickCount();
@@ -44,11 +46,14 @@ void Task_Drop_detection(void * pvParameters)
 
 		vTaskDelayUntil( &xLastWakeTime, xFrequency );
 
-		uint16_t gpio_value = HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_10);  // prend la valeur 1 lorsque pas d'obstacles
-																	// prend la valeur 0 lorsque detection d'un obstacle
+		gpio_value = HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_10);  // prend la valeur 1 lorsque pas d'obstacles
+															// prend la valeur 0 lorsque detection d'un obstacle
+		printf("valeur du capteur IR : %d \r\n", gpio_value);
+
 		if(gpio_value == 1)
 		{
 			Drop_flag = 1;
+			printf("largage effectue \r\n");
 			xTaskCreate(Task_lancement_Cansat, "Lancement du Cansat", 500, NULL, osPriorityHigh, &pxLancement_Cansat);
 			vTaskDelete(NULL);
 		}

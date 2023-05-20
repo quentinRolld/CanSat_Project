@@ -26,6 +26,9 @@
 #include "FreeRTOS.h"
 #include "FreeRTOSConfig.h"
 #include "pololu_sds01a.h"
+#include "Cansat_Task.h"
+#include "usart.h"
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -66,6 +69,8 @@ extern TIM_HandleTypeDef htim1;
 /* USER CODE BEGIN EV */
 
 extern TaskHandle_t pxDrop_detection;
+extern TaskHandle_t pxGPS_Handler;
+extern char uart_gps_rx[1];
 
 /* USER CODE END EV */
 
@@ -216,9 +221,17 @@ void USART1_IRQHandler(void)
 {
   /* USER CODE BEGIN USART1_IRQn 0 */
 
+	BaseType_t higher_priority_task_woken = pdFALSE;
+
+	vTaskNotifyGiveFromISR(pxGPS_Handler,&higher_priority_task_woken);
+
+	HAL_UART_Receive_IT(&huart1, (uint8_t*)&uart_gps_rx, 1);
+
   /* USER CODE END USART1_IRQn 0 */
   HAL_UART_IRQHandler(&huart1);
   /* USER CODE BEGIN USART1_IRQn 1 */
+
+  portYIELD_FROM_ISR(higher_priority_task_woken);
 
   /* USER CODE END USART1_IRQn 1 */
 }

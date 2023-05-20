@@ -92,18 +92,18 @@ HAL_UART_Transmit(&huart2, (uint8_t *)&ch, 1, HAL_MAX_DELAY);
 return ch;
 }
 
-
+/*
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){ // fonction de callback de l'UART
 
-	if(&huart == &huart1){
+	//if(huart->Instance == USART1){
 
 		HAL_UART_Receive_IT(&huart1, &uart_gps_rx, 1);
 
 		portYIELD_FROM_ISR(Task_GPS_data_reading);
 
-	}
+	//}
 }
-
+*/
 
 /* USER CODE END 0 */
 
@@ -258,7 +258,7 @@ int main(void)
      * ********                    *********
      */
 
-    HAL_UART_Receive_IT(&huart1, uart_gps_rx, 1);
+
 
     /**********                              *********
      * ******** INITIALISATION Pololu_sds01a *********
@@ -272,8 +272,7 @@ int main(void)
      */
 
 
-
-  vTaskStartScheduler();
+  //vTaskStartScheduler();
   /* USER CODE END 2 */
 
   /* Call init function for freertos objects (in freertos.c) */

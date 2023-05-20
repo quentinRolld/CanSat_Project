@@ -1,5 +1,5 @@
 ../Core/Src/Cansat_Task.c:46:6:Task_lancement_Cansat	16	static
-../Core/Src/Cansat_Task.c:57:6:Task_Mesure_M	16	static
-../Core/Src/Cansat_Task.c:73:6:Task_Mesure_AetG	4	static
-../Core/Src/Cansat_Task.c:84:6:Task_GPS_data_reading	200	static
-../Core/Src/Cansat_Task.c:97:6:Task_eCompass	224	static
+../Core/Src/Cansat_Task.c:59:6:Task_Mesure_M	16	static
+../Core/Src/Cansat_Task.c:75:6:Task_Mesure_AetG	4	static
+../Core/Src/Cansat_Task.c:86:6:Task_GPS_data_reading	200	static
+../Core/Src/Cansat_Task.c:102:6:Task_eCompass	224	static

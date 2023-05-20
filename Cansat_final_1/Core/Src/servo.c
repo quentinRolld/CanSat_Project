@@ -71,16 +71,16 @@ void servoSetAngleRight(unsigned int angle){
 	 */
 void servoSetPositionLeft (int position){
 	if (position == 0){
-		TIM1->CCR1 = POSITION_0_LEFT;
+		TIM2->CCR1 = POSITION_0_LEFT;
 	}
 	else if (position == 1){
-			TIM1->CCR1 = POSITION_1_LEFT;
+			TIM2->CCR1 = POSITION_1_LEFT;
 	}
 	else if (position == 2){
-			TIM1->CCR1 = POSITION_2_LEFT;
+			TIM2->CCR1 = POSITION_2_LEFT;
 	}
 	else if (position == 3){
-			TIM1->CCR1 = POSITION_3_LEFT;
+			TIM2->CCR1 = POSITION_3_LEFT;
 	}
 	else {
 		printf("Vous ne devez mettre en entree que 0,1,2 ou 3 \r\n");
@@ -95,16 +95,16 @@ void servoSetPositionLeft (int position){
 	 */
 void servoSetPositionRight (int position){
 	if (position == 0){
-		TIM1->CCR2 = POSITION_0_RIGHT;
+		TIM2->CCR2 = POSITION_0_RIGHT;
 	}
 	else if (position == 1){
-			TIM1->CCR2 = POSITION_1_RIGHT;
+			TIM2->CCR2 = POSITION_1_RIGHT;
 	}
 	else if (position == 2){
-			TIM1->CCR2 = POSITION_2_RIGHT;
+			TIM2->CCR2 = POSITION_2_RIGHT;
 	}
 	else if (position == 3){
-			TIM1->CCR2 = POSITION_3_RIGHT;
+			TIM2->CCR2 = POSITION_3_RIGHT;
 	}
 	else {
 		printf("Vous ne devez mettre en entree 0,1,2 ou 3 \r\n");

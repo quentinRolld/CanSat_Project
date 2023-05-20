@@ -47,9 +47,11 @@ void Task_lancement_Cansat(){
 
 	for(;;){
 
-		xTaskCreate(Task_Mesure_M, "mesure champ magnetique", 500, NULL, osPriorityHigh, pxMesure_M);
+		xTaskCreate(Task_Mesure_M, "mesure champ magnetique", 500, NULL, osPriorityHigh, &pxMesure_M);
 		//xTaskCreate(Task_Mesure_AetG, "mesure acceleration lineaire et angulaire", 500, NULL, osPriorityAboveNormal, pxCreatedTask);
-		xTaskCreate(Task_eCompass, "eCompass", 500, NULL, osPriorityAboveNormal, pxeCompass);
+		xTaskCreate(Task_eCompass, "eCompass", 500, NULL, osPriorityAboveNormal, &pxeCompass);
+
+		vTaskDelete(NULL);
 	}
 }
 
@@ -57,7 +59,7 @@ void Task_lancement_Cansat(){
 void Task_Mesure_M(){
 
 	TickType_t xLastWakeTime;
-		const TickType_t xFrequency = portTICK_PERIOD_MS/200;
+		const TickType_t xFrequency = 200;
 
 		// Initialise the xLastWakeTime variable with the current time.
 		xLastWakeTime = xTaskGetTickCount();
@@ -65,7 +67,7 @@ void Task_Mesure_M(){
 	for(;;){
 
 		vTaskDelayUntil( &xLastWakeTime, xFrequency );
-
+		printf("mesure champ magnetique \r\n");
 		Measure_M(&hi2c1, pDataCansat.IMU.MagnetometerData.mag_raw, pDataCansat.IMU.MagnetometerData.offset, pDataCansat.IMU.MagnetometerData.coeff);
 	}
 }
@@ -83,11 +85,14 @@ void Task_Mesure_AetG(){
  */
 void Task_GPS_data_reading(){
 
+	HAL_UART_Receive_IT(&huart1, (uint8_t*)&uart_gps_rx, 1);
 
 	for(;;){
 
-		ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
+		ulTaskNotifyTake(pdTRUE, 500);
+
 		GPS_data_reading(pDataCansat);
+		printf("GPS read ***************** \r\n");
 
 	}
 }
@@ -100,10 +105,10 @@ void Task_eCompass(){
 	double Delta_theta = 0;
 
 	TickType_t xLastWakeTime;
-			const TickType_t xFrequency = portTICK_PERIOD_MS/1000;
+	const TickType_t xFrequency = 1000;
 
-			// Initialise the xLastWakeTime variable with the current time.
-			xLastWakeTime = xTaskGetTickCount();
+	// Initialise the xLastWakeTime variable with the current time.
+	xLastWakeTime = xTaskGetTickCount();
 
 	for(;;){
 
@@ -122,9 +127,13 @@ void Task_eCompass(){
 		Cansat_theta = magnetic_field_to_degree(pDataCansat.IMU.MagnetometerData.mag_raw);
 		pDataCansat.IMU.MagnetometerData.degree_angle = Cansat_theta;
 
+		printf("Cansat theta computed * * * * * * * * * \r\n");
+
 		//4. Calcul du Delta theta
 
 		Delta_theta = Delta_theta_calculation(pDataCansat);
+
+		printf("Delta theta computed * * * * * * * * * * \r\n");
 
 		//5. Rotation des servos en conséquence
 

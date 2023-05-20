@@ -60,7 +60,6 @@ void GPS_data_reading(TypeDataCansat pData){
 	int i = 0;
 	int n = 0;
 
-
 		while(n<6){
 
 	  		if(data_rdy == 1){
@@ -136,7 +135,9 @@ void GPS_data_reading(TypeDataCansat pData){
 	  				}
 	  			}
 	  			else i++;
-	  			n++ ;
+
 	  		}
+	  n++ ;
 	}
+
 }
