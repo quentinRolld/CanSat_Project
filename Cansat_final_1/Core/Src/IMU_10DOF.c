@@ -326,14 +326,12 @@ void Measure_M(I2C_HandleTypeDef* p_hi2c1,double* mag, double* offset, double* c
 
 						// calibration
 
+						/*
 						mag[0] = (mag[0]-offset[0])*coeff[0];
 						mag[1] = (mag[1]-offset[1])*coeff[1];
 						mag[2] = (mag[2]-offset[2])*coeff[2];
-					/*
-						mag[0] = (mag[0]*coeff[0])-offset[0];
-						mag[1] = (mag[1]*coeff[1])-offset[1];
-						mag[2] = (mag[2]*coeff[2])-offset[2];
-					*/
+						*/
+
 			}
 		}
 }
