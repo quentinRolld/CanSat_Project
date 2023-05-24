@@ -50,7 +50,8 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Core/Inc/usart.h ../Core/Inc/gpio.h ../Core/Inc/Const.h \
  ../Core/Inc/IMU_10DOF.h ../Core/Inc/data.h ../Core/Inc/types.h \
  ../Core/Inc/types.h ../Core/Inc/servo.h ../Core/Inc/gps.h \
- ../Core/Inc/pololu_sds01a.h ../Core/Inc/Cansat_Task.h
+ ../Core/Inc/pololu_sds01a.h ../Core/Inc/Cansat_Task.h \
+ ../Middlewares/Third_Party/FreeRTOS/Source/include/stream_buffer.h
 ../Core/Inc/main.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 ../Core/Inc/stm32f4xx_hal_conf.h:
@@ -113,3 +114,4 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../Core/Inc/gps.h:
 ../Core/Inc/pololu_sds01a.h:
 ../Core/Inc/Cansat_Task.h:
+../Middlewares/Third_Party/FreeRTOS/Source/include/stream_buffer.h:

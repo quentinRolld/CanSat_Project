@@ -28,6 +28,8 @@
 #include "pololu_sds01a.h"
 #include "Cansat_Task.h"
 #include "usart.h"
+#include "Const.h"
+#include "stream_buffer.h"
 
 /* USER CODE END Includes */
 
@@ -51,6 +53,12 @@
 
 int it_rx_gps = 0;
 
+extern char uart_gps_rx[GPS_TRAME_SIZE];
+
+/********* StreamBuffer *********/
+extern StreamBufferHandle_t xGPS_StreamBuffer;
+
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -72,7 +80,7 @@ extern TIM_HandleTypeDef htim1;
 
 extern TaskHandle_t pxDrop_detection;
 extern TaskHandle_t pxGPS_Handler;
-extern char uart_gps_rx[1];
+
 
 /* USER CODE END EV */
 
@@ -226,9 +234,10 @@ void USART1_IRQHandler(void)
 	BaseType_t higher_priority_task_woken = pdFALSE;
 	vTaskNotifyGiveFromISR(pxGPS_Handler,&higher_priority_task_woken);
 */
-	HAL_UART_Receive_IT(&huart1, (uint8_t*)&uart_gps_rx, 1);
+	//HAL_UART_Receive_DMA(&huart1, (uint8_t*)&uart_gps_rx, 1);
 
 	it_rx_gps = 1;
+	xStreamBufferSendFromISR( xGPS_StreamBuffer, &uart_gps_rx, 80, NULL);
 
   /* USER CODE END USART1_IRQn 0 */
   HAL_UART_IRQHandler(&huart1);
@@ -256,5 +265,6 @@ void EXTI15_10_IRQHandler(void)
 }
 
 /* USER CODE BEGIN 1 */
+
 
 /* USER CODE END 1 */

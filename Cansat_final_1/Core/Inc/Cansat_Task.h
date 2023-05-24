@@ -14,6 +14,7 @@ void Task_Mesure_AetG();
 void Task_GPS_data_reading();
 void Task_eCompass();
 void Task_lancement_Cansat();
+void prvGPS_ReceivingTask( void *pvParameters );
 
 
 #endif /* INC_CANSAT_TASK_H_ */

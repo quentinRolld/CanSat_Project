@@ -36,6 +36,8 @@
 #include "gps.h"
 #include "pololu_sds01a.h"
 #include "Cansat_Task.h"
+#include "stream_buffer.h"
+#include "stream_buffer.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -60,6 +62,9 @@
 
 TypeDataCansat pDataCansat;
 
+/******* StreamBuffer Handler ******/
+extern StreamBufferHandle_t xGPS_StreamBuffer;
+
 /******* Task Handler ********/
 extern TaskHandle_t pxGPS_Handler;
 extern TaskHandle_t pxDrop_detection;
@@ -71,8 +76,8 @@ extern TaskHandle_t pxeCompass;
 int Drop_flag = 0; // flag that indicates if the Cansat probe has been launch, in order to begin the missions
 
 /******* GPS ********/
-char uart_gps_rx[1];
-char uart_pc_tx[1];
+char uart_gps_rx[GPS_TRAME_SIZE];
+char uart_pc_tx[GPS_TRAME_SIZE];
 /********************/
 
 /* USER CODE END PV */
@@ -92,18 +97,28 @@ HAL_UART_Transmit(&huart2, (uint8_t *)&ch, 1, HAL_MAX_DELAY);
 return ch;
 }
 
-/*
+
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){ // fonction de callback de l'UART
 
-	//if(huart->Instance == USART1){
 
-		HAL_UART_Receive_IT(&huart1, &uart_gps_rx, 1);
+	if(huart == &huart1){
 
-		portYIELD_FROM_ISR(Task_GPS_data_reading);
+		//HAL_UART_Receive_IT(&huart1, (uint8_t *)&uart_gps_rx, 80);
 
-	//}
+		//xStreamBufferSendFromISR( xGPS_StreamBuffer, &uart_gps_rx, 80, NULL);
+
+		/* ( StreamBufferHandle_t xStreamBuffer,
+										 const void *pvTxData,
+										 size_t xDataLengthBytes,
+										 BaseType_t * const pxHigherPriorityTaskWoken )
+		*/
+
+		//portYIELD_FROM_ISR();
+
+	}
+
 }
-*/
+
 
 /* USER CODE END 0 */
 

@@ -46,7 +46,9 @@ Core/Src/freertos.o: ../Core/Src/freertos.c \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h \
- ../Core/Inc/Cansat_Task.h ../Core/Inc/pololu_sds01a.h
+ ../Core/Inc/Cansat_Task.h ../Core/Inc/pololu_sds01a.h \
+ ../Middlewares/Third_Party/FreeRTOS/Source/include/stream_buffer.h \
+ ../Core/Inc/Const.h
 ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h:
 ../Core/Inc/FreeRTOSConfig.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h:
@@ -97,3 +99,5 @@ Core/Src/freertos.o: ../Core/Src/freertos.c \
 ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h:
 ../Core/Inc/Cansat_Task.h:
 ../Core/Inc/pololu_sds01a.h:
+../Middlewares/Third_Party/FreeRTOS/Source/include/stream_buffer.h:
+../Core/Inc/Const.h:

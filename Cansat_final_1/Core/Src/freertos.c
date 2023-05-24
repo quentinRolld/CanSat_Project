@@ -27,6 +27,8 @@
 /* USER CODE BEGIN Includes */
 #include "Cansat_Task.h"
 #include "pololu_sds01a.h"
+#include "stream_buffer.h"
+#include "Const.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -47,12 +49,17 @@
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN Variables */
 
+/******* StreamBuffer Handler *******/
+
+StreamBufferHandle_t xGPS_StreamBuffer = NULL;
+
 /******* Task Handler ********/
-TaskHandle_t pxGPS_Handler;
-TaskHandle_t pxDrop_detection;
-TaskHandle_t pxLancement_Cansat;
-TaskHandle_t pxMesure_M;
-TaskHandle_t pxeCompass;
+TaskHandle_t pxGPS_Handler = NULL;
+TaskHandle_t pxDrop_detection = NULL;
+TaskHandle_t pxLancement_Cansat = NULL;
+TaskHandle_t pxMesure_M = NULL;
+TaskHandle_t pxeCompass = NULL;
+TaskHandle_t pxGPS_Data = NULL;
 /****************************/
 
 /* USER CODE END Variables */
@@ -98,8 +105,13 @@ void MX_FREERTOS_Init(void) {
   /* USER CODE END RTOS_MUTEX */
 
   /* USER CODE BEGIN RTOS_SEMAPHORES */
-  /* add semaphores, ... */
+
   /* USER CODE END RTOS_SEMAPHORES */
+
+  /* USER CODE BEGIN StreamBuffer */
+
+	xGPS_StreamBuffer = xStreamBufferCreate( /* The buffer length in bytes. */GPS_TRAME_SIZE,/* The stream buffer's trigger level. */GPS_TRAME_SIZE);
+  /* USER CODE END StreamBuffer */
 
   /* USER CODE BEGIN RTOS_TIMERS */
   /* start timers, add new ones, ... */
@@ -118,7 +130,10 @@ void MX_FREERTOS_Init(void) {
 
 xTaskCreate(Task_Drop_detection, "Drop detection", 500, NULL, osPriorityHigh, &pxDrop_detection);
 
-xTaskCreate(Task_GPS_data_reading, "Lecture des donnees GPS", 500, NULL, osPriorityAboveNormal, &pxGPS_Handler);
+
+//Taches GPS
+//xTaskCreate(Task_GPS_data_reading, "Lecture des donnees GPS", 500, NULL, osPriorityHigh, &pxGPS_Handler);
+xTaskCreate(prvGPS_ReceivingTask, "recuperation donnees GPS", 500, NULL, osPriorityHigh, &pxGPS_Data);
 
   /* USER CODE END RTOS_THREADS */
 

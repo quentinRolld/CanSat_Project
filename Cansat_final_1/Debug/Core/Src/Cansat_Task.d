@@ -51,7 +51,8 @@ Core/Src/Cansat_Task.o: ../Core/Src/Cansat_Task.c ../Core/Inc/Const.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h \
- ../Core/Inc/i2c.h
+ ../Core/Inc/i2c.h \
+ ../Middlewares/Third_Party/FreeRTOS/Source/include/stream_buffer.h
 ../Core/Inc/Const.h:
 ../Core/Inc/IMU_10DOF.h:
 ../Core/Inc/main.h:
@@ -111,3 +112,4 @@ Core/Src/Cansat_Task.o: ../Core/Src/Cansat_Task.c ../Core/Inc/Const.h \
 ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h:
 ../Core/Inc/i2c.h:
+../Middlewares/Third_Party/FreeRTOS/Source/include/stream_buffer.h:
