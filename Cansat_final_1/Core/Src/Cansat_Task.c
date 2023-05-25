@@ -135,9 +135,52 @@ void prvGPS_ReceivingTask( void *pvParameters )
 
 		if( i == 0 )
 		{
-			if( ReceivingTask_rx[i] == '$');
-			i++;
+			if( ReceivingTask_rx[i] == '$')
+			{
+				i++;
+			}
 		}
+
+		if( i == 1 )
+		{
+			if( ReceivingTask_rx[i] == 'G')
+			{
+				i++;
+			}
+		}
+
+		if( i == 2 )
+		{
+			if( ReceivingTask_rx[i] == 'N')
+			{
+				i++;
+			}
+		}
+
+		if( i == 3)
+		{
+			if( ReceivingTask_rx[i] == 'G')
+			{
+				i++;
+			}
+		}
+
+		if( i == 4 )
+		{
+			if( ReceivingTask_rx[i] == 'G')
+			{
+				i++;
+			}
+		}
+
+		if( i == 5)
+		{
+			if( ReceivingTask_rx[i] == 'A')
+			{
+				i++;
+			}
+		}
+
 
 		/*
 		if(i==999)
