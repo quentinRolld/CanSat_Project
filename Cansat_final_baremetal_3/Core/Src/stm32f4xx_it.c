@@ -44,7 +44,7 @@
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN PV */
-
+int flag_data_ready = 0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -216,6 +216,9 @@ void TIM3_IRQHandler(void)
   HAL_TIM_IRQHandler(&htim3);
   /* USER CODE BEGIN TIM3_IRQn 1 */
 
+  if(flag_data_ready)
+  {
+
   /*************** Calcul du delta theta ***************/
 
   pDataCansat.eCompass.Delta_theta = Delta_theta_calculation(pDataCansat);
@@ -227,6 +230,10 @@ void TIM3_IRQHandler(void)
   /*************** clignottement LED pour verif ****************/
 
   HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
+
+  flag_data_ready = 0;
+
+  }
 
   /* USER CODE END TIM3_IRQn 1 */
 }

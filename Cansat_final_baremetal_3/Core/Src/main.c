@@ -106,6 +106,10 @@ int data_rdy = 0;
 char uart_tx_buffer[128];
 /********************/
 
+/******* flag *******/
+
+//flag pour attendre les données en degré avant de faire tourner les servos dans l'interruption
+extern int flag_data_ready;
 
 /* USER CODE END PV */
 
@@ -297,6 +301,7 @@ int main(void)
      * ********                       *********
      */
 
+    int deploiement_bras_flag = 1;
     int altitude_ouverture_ballons = 30; // altitude à partir de laquelle on démarre l'opération
     									 // d'ouverture de la structure gonflable
     									 // à déterminer expérimentalement --> prendre en compte l'altitude locale
@@ -304,6 +309,11 @@ int main(void)
     HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
     HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_2);
 
+    HAL_Delay(500);
+
+    //repliement du bras pour pouvoir rentrer dans la capsule de largage
+    __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, 1100);
+    __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_2, 2100);
 
     /************* INITIALISATION TIMER3 *************/ //pour calculer l'angle et déclencher le mouvement des servos toutes les secondes
 
@@ -414,6 +424,13 @@ int main(void)
 
 	  	  	  if(Drop_flag) // largage détecté, démarrage des missions
 	  	  	  {
+	  	  		 /*************** Deploiement des bras ***************/
+	  	  		  if(deploiement_bras_flag){
+
+	  	  			__HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, 400); // on deploie les bras
+	  	  			deploiement_bras_flag = 0;
+	  	  		  }
+
 	  	  		 /*************** Lecture du champ magnétique terrestre **************/
 
 	  	  		  Measure_M(&hi2c1, pDataCansat.IMU.MagnetometerData.mag_raw, pDataCansat.IMU.MagnetometerData.offset, pDataCansat.IMU.MagnetometerData.offset);
@@ -422,7 +439,9 @@ int main(void)
 
 	  	  		 /*************** Conversion du champ magnétique en degrées **************/
 
-	  	  		  magnetic_field_to_degree(pDataCansat.IMU.MagnetometerData.mag_raw);
+	  	  		  pDataCansat.IMU.MagnetometerData.degree_angle = magnetic_field_to_degree(pDataCansat.IMU.MagnetometerData.mag_raw);
+
+	  	  		 flag_data_ready = 1;
 
 	  	  		  if( demarrage_tim3 )
 	  	  		  {
