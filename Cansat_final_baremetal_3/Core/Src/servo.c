@@ -139,35 +139,35 @@ void servoSetPositionRight (int position){
 	 */
 
 void choice_direction_intensity(unsigned int delta_teta){
-	if ((delta_teta<epsilon) || (delta_teta>360-epsilon)){
+	if ((delta_teta<epsilon) || (delta_teta>(360-epsilon))){
 		servoSetPositionLeft(0);
 		servoSetPositionRight(0);
 	}
-	else if (delta_teta<teta_low){
+	else if ((delta_teta<teta_low) || (delta_teta>=epsilon)){
 		servoSetPositionLeft(0);
 		servoSetPositionRight(1);
 	}
-	else if (delta_teta>360-teta_low){
+	else if ((delta_teta>(360-teta_low)) || (delta_teta<=(360-epsilon))){
 		servoSetPositionLeft(1);
 		servoSetPositionRight(0);
 	}
 
-	else if (delta_teta<teta_high){
+	else if (delta_teta<teta_high || (delta_teta>=teta_low)){
 		servoSetPositionLeft(0);
 		servoSetPositionRight(2);
 	}
 
-	else if (delta_teta>360-teta_high){
+	else if (delta_teta>(360-teta_high) || delta_teta<=(360-teta_low)){
 		servoSetPositionLeft(2);
 		servoSetPositionRight(0);
 	}
 
-	else if (delta_teta<=180){
+	else if (delta_teta<=180 || delta_teta >= teta_high){
 		servoSetPositionLeft(0);
 		servoSetPositionRight(3);
 	}
 
-	else if (delta_teta>180){
+	else if (delta_teta>180 || delta_teta <= (360-teta_high)){
 		servoSetPositionLeft(3);
 		servoSetPositionRight(0);
 	}
