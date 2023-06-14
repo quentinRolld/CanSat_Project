@@ -44,7 +44,7 @@
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN PV */
-int flag_data_ready = 0;
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -64,6 +64,7 @@ extern UART_HandleTypeDef huart1;
 /* USER CODE BEGIN EV */
 
 extern TypeDataCansat pDataCansat;
+extern int increment_positionning;
 
 /* USER CODE END EV */
 
@@ -216,24 +217,8 @@ void TIM3_IRQHandler(void)
   HAL_TIM_IRQHandler(&htim3);
   /* USER CODE BEGIN TIM3_IRQn 1 */
 
-  if(flag_data_ready)
-  {
+  increment_positionning = 1;
 
-  /*************** Calcul du delta theta ***************/
-
-  pDataCansat.eCompass.Delta_theta = Delta_theta_calculation(pDataCansat);
-
-  /*************** Mise en marche des servos pour corriger la direction **************/
-
-  choice_direction_intensity(pDataCansat.eCompass.Delta_theta);
-
-  /*************** clignottement LED pour verif ****************/
-
-  HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
-
-  flag_data_ready = 0;
-
-  }
 
   /* USER CODE END TIM3_IRQn 1 */
 }

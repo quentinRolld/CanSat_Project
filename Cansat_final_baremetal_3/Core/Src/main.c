@@ -59,6 +59,11 @@
 /* USER CODE BEGIN PV */
 
 
+/******* incrément pour le mouvement *********/
+
+int increment_positionning = 0;
+
+
 /******* Data structure *******/
 TypeDataCansat pDataCansat;
 /******************************/
@@ -108,8 +113,7 @@ char uart_tx_buffer[128];
 
 /******* flag *******/
 
-//flag pour attendre les données en degré avant de faire tourner les servos dans l'interruption
-extern int flag_data_ready;
+
 
 /* USER CODE END PV */
 
@@ -311,9 +315,38 @@ int main(void)
 
     HAL_Delay(500);
 
+    // Protocole de test des servos
+
+    //servo droit
+    __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, 400);
+    HAL_Delay(2000);
+
+    __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, 600);
+    HAL_Delay(2000);
+
+    __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, 1000);
+    HAL_Delay(2000);
+
+    __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, 1500);
+    HAL_Delay(2000);
+
+    //servo gauche
+	__HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_2, 2600);
+	HAL_Delay(2000);
+
+    __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_2, 2400);
+	HAL_Delay(2000);
+
+	__HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_2, 2000);
+	HAL_Delay(2000);
+
+	__HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_2, 1500);
+	HAL_Delay(2000);
+
+
     //repliement du bras pour pouvoir rentrer dans la capsule de largage
-    __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, 1100);
-    __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_2, 2100);
+    __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_2, 1350);
+    __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, 1700);
 
     /************* INITIALISATION TIMER3 *************/ //pour calculer l'angle et déclencher le mouvement des servos toutes les secondes
 
@@ -424,10 +457,25 @@ int main(void)
 
 	  	  	  if(Drop_flag) // largage détecté, démarrage des missions
 	  	  	  {
+
+	  	  		if( demarrage_tim3 )
+	  	  			  	  		  {
+	  	  			  	  			if(HAL_TIM_Base_Start_IT(&htim3) != HAL_OK)
+	  	  			  	  			{
+	  	  			  	  				printf("defaut d'initialisation du tim3");    // initialisation du TIM3 pour
+	  	  			  	  			}												  // lancer le programme toutes les secondes
+	  	  			  	  			demarrage_tim3 = 0;
+	  	  			  	  		  }
+
+	  	  		  if(increment_positionning)
+	  	  		  {
+
+
 	  	  		 /*************** Deploiement des bras ***************/
 	  	  		  if(deploiement_bras_flag){
 
-	  	  			__HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, 400); // on deploie les bras
+	  	  			__HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, 2600);
+	  	  			__HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_2, 400); // on deploie les bras
 	  	  			deploiement_bras_flag = 0;
 	  	  		  }
 
@@ -437,27 +485,34 @@ int main(void)
 	  	  		  //printf("champ magnetique --- selon x : %f , selon y : %f \r\n", pDataCansat.IMU.MagnetometerData.mag_raw[0], pDataCansat.IMU.MagnetometerData.mag_raw[1]);
 	  	  		  HAL_Delay(50);
 
-	  	  		 /*************** Conversion du champ magnétique en degrées **************/
+	  	  		 /*************** Conversion du champ magnétique en degrés **************/
 
 	  	  		  pDataCansat.IMU.MagnetometerData.degree_angle = magnetic_field_to_degree(pDataCansat.IMU.MagnetometerData.mag_raw);
 
-	  	  		 flag_data_ready = 1;
 
-	  	  		  if( demarrage_tim3 )
-	  	  		  {
-	  	  			if(HAL_TIM_Base_Start_IT(&htim3) != HAL_OK)
-	  	  			{
-	  	  				printf("defaut d'initialisation du tim3");
-	  	  			}
-	  	  			demarrage_tim3 = 0;
+	  	  		   /*************** Calcul du delta theta ***************/
+
+	  	  		  pDataCansat.eCompass.Delta_theta = Delta_theta_calculation(pDataCansat);
+
+	  	  		  /*************** Mise en marche des servos pour corriger la direction **************/
+
+	  	  		  choice_direction_intensity(pDataCansat.eCompass.Delta_theta);
+
+	  	  		  /*************** clignottement LED pour verif ****************/
+
+	  	  		  HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
+
+
+	  	  		  increment_positionning = 0;
 	  	  		  }
-
 
 
 	  	  		  if(pDataCansat.GPS.altitude_Cansat <= altitude_ouverture_ballons )
 	  	  		  {
 	  	  			  // fonction d'ouverture des ballons
 	  	  			 declenchement_structure_gonflable();
+
+	  	  			 // abaissement des bras pour l'atterrissage
 	  	  		  }
 	  	  	  }
 

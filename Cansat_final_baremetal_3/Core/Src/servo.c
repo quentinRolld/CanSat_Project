@@ -75,18 +75,22 @@ void servoSetPositionLeft (int position){
 	if (position == 0){
 		//TIM2->CCR1 = POSITION_0_LEFT;
 		__HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, 400);
+		HAL_Delay(50);
 	}
 	else if (position == 1){
 			//TIM2->CCR1 = POSITION_1_LEFT;
 		__HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, 600);
+		HAL_Delay(50);
 	}
 	else if (position == 2){
 			//TIM2->CCR1 = POSITION_2_LEFT;
 		__HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, 1000);
+		HAL_Delay(50);
 	}
 	else if (position == 3){
 			//TIM2->CCR1 = POSITION_3_LEFT;
 		__HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, 1500);
+		HAL_Delay(50);
 	}
 	else {
 		printf("Vous ne devez mettre en entree que 0,1,2 ou 3 \r\n");
@@ -102,19 +106,23 @@ void servoSetPositionLeft (int position){
 void servoSetPositionRight (int position){
 	if (position == 0){
 		//TIM2->CCR2 = POSITION_0_RIGHT;
-		__HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_2, 400);
+		__HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_2, 2600);
+		HAL_Delay(50);
 	}
 	else if (position == 1){
 			//TIM2->CCR2 = POSITION_1_RIGHT;
-		__HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_2, 600);              //   Attention, Channel 1 --> servo gauche
+		__HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_2, 2400);              //   Attention, Channel 1 --> servo gauche
+		HAL_Delay(50);
 	}															 	   	//   			Channel 2 --> servo droit
 	else if (position == 2){
 			//TIM2->CCR2 = POSITION_2_RIGHT;
-		__HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_2, 1000);
+		__HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_2, 2000);
+		HAL_Delay(50);
 	}
 	else if (position == 3){
 			//TIM2->CCR2 = POSITION_3_RIGHT;
 		__HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_2, 1500);
+		HAL_Delay(50);
 	}
 	else {
 		printf("Vous ne devez mettre en entree 0,1,2 ou 3 \r\n");
