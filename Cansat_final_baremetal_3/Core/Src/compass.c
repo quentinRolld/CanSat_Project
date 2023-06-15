@@ -38,9 +38,14 @@ double Delta_theta_calculation(TypeDataCansat DataCansat){
 	double latitude_vector = DataCansat.GPS.latitude_Target - DataCansat.GPS.latitude_Cansat;
 	double longitude_vector = DataCansat.GPS.longitude_Target - DataCansat.GPS.longitude_Cansat;
 
-	theta_target = atan(longitude_vector/latitude_vector);
+	theta_target = atan2(longitude_vector, latitude_vector);
+	theta_target = theta_target * 180/M_PI;  // Conversion en degrés
+	if(theta_target<=0)
+	{
+		theta_target+=360;
+	}
 
-	double Delta_theta = theta_target - DataCansat.IMU.MagnetometerData.degree_angle;
+	double Delta_theta = fabs(theta_target - DataCansat.IMU.MagnetometerData.degree_angle);
 
 	return Delta_theta;
 }
