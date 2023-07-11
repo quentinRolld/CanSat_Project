@@ -11,7 +11,6 @@
 #include "main.h"
 
 
-
 typedef enum {
 	ON,
 	OFF,
@@ -128,6 +127,85 @@ typedef struct TypeDataeCompass{
 
 } TypeDataeCompass;
 
+/********** BMP280 ***********/
+
+typedef struct Temperature
+    {
+        uint8_t T_Brute_MSB;
+        uint8_t T_Brute_LSB;
+        uint8_t T_Brute_XLSB;
+        uint32_t T_Brute;
+        uint32_t Temp_finale;
+    } Temperature;
+
+typedef struct Pression
+    {
+        uint8_t P_Brute_MSB;
+        uint8_t P_Brute_LSB;
+        uint8_t P_Brute_XLSB;
+        uint32_t P_Brute;
+        uint32_t Pression_finale;
+    } Pression;
+
+
+
+typedef struct bmp280_calib_param
+	{
+	    uint16_t dig_t1;
+	    int16_t dig_t2;
+	    int16_t dig_t3;
+	    uint16_t dig_p1;
+	    int16_t dig_p2;
+	    int16_t dig_p3;
+	    int16_t dig_p4;
+	    int16_t dig_p5;
+	    int16_t dig_p6;
+	    int16_t dig_p7;
+	    int16_t dig_p8;
+	    int16_t dig_p9;
+	    int32_t t_fine;
+
+	}bmp280_calib_param;
+
+typedef struct bmp280_calib_param_raw
+	{
+		uint8_t MSB_T1;
+		uint8_t LSB_T1;
+		uint8_t MSB_T2;
+		uint8_t LSB_T2;
+		uint8_t MSB_T3;
+		uint8_t LSB_T3;
+		uint8_t MSB_P1;
+		uint8_t LSB_P1;
+		uint8_t MSB_P2;
+		uint8_t LSB_P2;
+		uint8_t MSB_P3;
+		uint8_t LSB_P3;
+		uint8_t MSB_P4;
+		uint8_t LSB_P4;
+		uint8_t MSB_P5;
+		uint8_t LSB_P5;
+		uint8_t MSB_P6;
+		uint8_t LSB_P6;
+		uint8_t MSB_P7;
+		uint8_t LSB_P7;
+		uint8_t MSB_P8;
+		uint8_t LSB_P8;
+		uint8_t MSB_P9;
+		uint8_t LSB_P9;
+
+	}bmp280_calib_param_raw;
+
+
+typedef struct TypeDataBMP280
+    {
+        Temperature Temp;
+        Pression Press;
+        bmp280_calib_param calib_param;
+        bmp280_calib_param_raw calib_param_raw;
+
+    } TypeDataBMP280;
+
 /********** General **********/
 
 typedef struct TypeDataCansat{
@@ -135,6 +213,7 @@ typedef struct TypeDataCansat{
 	TypeDataGPS GPS;
 	TypeDataIMU IMU;
 	TypeDataeCompass eCompass;
+	TypeDataBMP280 DataFromBMP280;
 
 } TypeDataCansat;
 

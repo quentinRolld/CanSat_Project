@@ -37,6 +37,7 @@
 #include "compass.h"
 #include "stdlib.h"
 #include "string.h"
+#include "bmp280.h"
 
 /* USER CODE END Includes */
 
@@ -112,8 +113,25 @@ char uart_tx_buffer[128];
 /********************/
 
 /******* flag *******/
+/********************/
 
+/******* bmp280 *******/
+uint8_t pData_bmp280[32] = {0};
+uint8_t pTemp_bmp_280[5] = {0};
+uint8_t pPress_bmp280[5] = {0};
+uint32_t PressRaw_bmp280 = 0;
+uint32_t TempRaw_bmp280 = 0;
+int i_bmp280=0;
 
+uint32_t pression_comp[1] = {0};
+
+/********************/
+
+/******* variable d'état *******/
+OUTCOME result = FAIL;
+TypeState Cansat_state = OFF;
+TypeStage Cansat_stage = FLOOR;
+/*******************************/
 
 /* USER CODE END PV */
 
@@ -154,6 +172,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){ // fonction de callback
 int main(void)
 {
   /* USER CODE BEGIN 1 */
+
 
   /* USER CODE END 1 */
 
@@ -217,10 +236,12 @@ int main(void)
     if(HAL_I2C_Master_Transmit(&hi2c1, MPU_ADD, pData, 1, HAL_MAX_DELAY) != HAL_OK )
     {
   	  printf("il y a une erreur avec I2C Master Transmit \r\n");
+  	  result = FAIL;
     }
     if(HAL_I2C_Master_Receive(&hi2c1, MPU_ADD, pData, 1, HAL_MAX_DELAY) != HAL_OK )
     {
   	  printf("il y a une erreur avec I2C Master Receive \r\n");
+  	  result = FAIL;
     }
 
 
@@ -228,9 +249,13 @@ int main(void)
     if((pData[0] =! 0x71))
     {
   	  printf("ce n'est pas le bon capteur \r\n");
+  	  result = FAIL;
     }
     else
+    {
   	  printf("MPU-9250 identified \r\n");
+  	  result = PASS;
+    }
 
     // vérification identité AK8963C (magnétomètre)
 
@@ -238,10 +263,12 @@ int main(void)
       if(HAL_I2C_Master_Transmit(&hi2c1, MAGNETO_ADD, pData, 1, HAL_MAX_DELAY) != HAL_OK )
       {
     	  printf("il y a une erreur avec I2C Master Transmit \r\n");
+    	  result = FAIL;
       }
       if(HAL_I2C_Master_Receive(&hi2c1, MAGNETO_ADD, pData, 1, HAL_MAX_DELAY) != HAL_OK )
       {
     	  printf("il y a une erreur avec I2C Master Receive \r\n");
+    	  result = FAIL;
       }
 
 
@@ -249,10 +276,13 @@ int main(void)
       if((pData[0] =! 0x48))
       {
     	  printf("ce n'est pas le bon capteur \r\n  ****** \r\n ****** \r\n ****** \r\n");
+    	  result = FAIL;
       }
       else
+      {
     	  printf("AK8963C identified \r\n  ****** \r\n ****** \r\n ****** \r\n");
-
+    	  result = PASS;
+      }
 
 
   // check les périphériques i2c disponibles
@@ -287,8 +317,49 @@ int main(void)
 
     //Position GPS cible : 43°13'18.7"N 0°03'10.0"W  --> données telles que décrites dans le règlement 2023
 
-    pDataCansat.GPS.latitude_Target = 43.2218611;
+     pDataCansat.GPS.latitude_Target = 43.2218611;
      pDataCansat.GPS.longitude_Target = -0.05277777777777778;
+
+
+
+     /**********                       *********
+      * ******** INITIALISATION BMP280 *********
+      * ********                       *********
+      */
+
+     int Cansat_altitude = 0; //altitude du cansat calculée à partir de la pression
+     pData_bmp280[0] = REG_ID;
+
+     //SENSOR ADDRESS ACQUISITION
+
+        HAL_I2C_Master_Transmit(&hi2c1, ADDRESS_BMP, pData_bmp280, 1, HAL_MAX_DELAY);
+       	HAL_I2C_Master_Receive(&hi2c1, ADDRESS_BMP, pData_bmp280, 1, HAL_MAX_DELAY);
+
+       	if(pData_bmp280[0] == VAL_ID)
+       	{
+       		printf("%x \r\n", pData_bmp280[0]);
+       		printf("bmp280 address valid \r\n");
+       	}
+       	else
+       	{
+       		printf("bmp280 bad address \r\n");
+       		Error_Handler();
+       		//allumer la led rouge de l'initialisation loupée
+       	}
+
+       	//SENSOR CONFIGURATION
+
+       	  	pData_bmp280[0]=ADDRESS_CTRL_MEAS;
+       	  	pData_bmp280[1]=MEASURING_CONFIG;
+
+       	  	if(HAL_I2C_Master_Transmit(&hi2c1, ADDRESS_BMP, pData_bmp280, 2, HAL_MAX_DELAY) != HAL_OK)
+       	  	{
+       	  		printf("error bmp280 configuration \r\n");
+       	  		result = FAIL;
+       	  	}
+       	  	else
+       	  		result = PASS;
+
 
 
 
@@ -306,7 +377,7 @@ int main(void)
      */
 
     int deploiement_bras_flag = 1;
-    int altitude_ouverture_ballons = 30; // altitude à partir de laquelle on démarre l'opération
+    int altitude_ouverture_ballons = 15; // altitude à partir de laquelle on démarre l'opération
     									 // d'ouverture de la structure gonflable
     									 // à déterminer expérimentalement --> prendre en compte l'altitude locale
 
@@ -354,6 +425,21 @@ int main(void)
 
 
     HAL_UART_Receive_IT(&huart1, (uint8_t *)&uart_gps_rx, 1);
+
+
+
+    /************* Vérification du bon déroulement de l'initialisation *************/
+
+    // Si l'initialisation est complète, on allume la LED verte
+    if(result == PASS)
+    {
+    	//Activer un GPIO x1
+    }
+    // Si l'initialisation a planté, on allume la LED rouge
+    if(result == FAIL)
+    {
+    	//Activer un autre GPIO x2
+    }
 
 
   /* USER CODE END 2 */
@@ -463,7 +549,9 @@ int main(void)
 	  	  			  	  			if(HAL_TIM_Base_Start_IT(&htim3) != HAL_OK)
 	  	  			  	  			{
 	  	  			  	  				printf("defaut d'initialisation du tim3");    // initialisation du TIM3 pour
-	  	  			  	  			}												  // lancer le programme toutes les secondes
+	  	  			  	  															  // lancer le programme toutes les secondes
+	  	  			  	  				result = FAIL;
+	  	  			  	  			}
 	  	  			  	  			demarrage_tim3 = 0;
 	  	  			  	  		  }
 
@@ -489,30 +577,58 @@ int main(void)
 
 	  	  		  pDataCansat.IMU.MagnetometerData.degree_angle = magnetic_field_to_degree(pDataCansat.IMU.MagnetometerData.mag_raw);
 
-
-	  	  		   /*************** Calcul du delta theta ***************/
+	  	  		 /*************** Calcul du delta theta ***************/
 
 	  	  		  pDataCansat.eCompass.Delta_theta = Delta_theta_calculation(pDataCansat);
 
-	  	  		  /*************** Mise en marche des servos pour corriger la direction **************/
+	  	  		 /*************** Mise en marche des servos pour corriger la direction **************/
 
 	  	  		  choice_direction_intensity(pDataCansat.eCompass.Delta_theta);
 
-	  	  		  /*************** clignottement LED pour verif ****************/
+	  	  		 /*************** clignottement LED pour verif ****************/
 
 	  	  		  HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
+
 
 
 	  	  		  increment_positionning = 0;
 	  	  		  }
 
+	  	  		/*************** Lecture de la pression ****************/
 
-	  	  		  if(pDataCansat.GPS.altitude_Cansat <= altitude_ouverture_ballons )
+	  	  		//PRESSURE DATA ACQUISITION
+
+	  	  		pData_bmp280[0]=PRESS1;	//Needed to get to the correct pressure register of the sensor
+	  	  		HAL_I2C_Master_Transmit(&hi2c1, ADDRESS_BMP, pData_bmp280, 1, HAL_MAX_DELAY);
+	  	  		HAL_I2C_Master_Receive(&hi2c1, ADDRESS_BMP, pPress_bmp280, 3, HAL_MAX_DELAY);
+
+	  	  	    // PRESSURE RAW DATA CONVERTION INTO 32 BIT DATA
+
+	  	  		 PressRaw_bmp280 = bmp280_conv_raw(pPress_bmp280);
+
+	  	  		// Calibration data
+
+	  	  		get_calib_param();
+
+	  	  		// computation of the pressure
+
+	  	  		bmp280_get_comp_pres_32bit(pression_comp, PressRaw_bmp280);
+
+	  	  		// computation of the altitude
+
+	  	  	    Cansat_altitude = press_to_altitude(pression_comp[0]);
+
+
+	  	  	    /*************** Mission 2 ouverture des ballons ***************/
+
+	  	  		  if(Cansat_altitude <= altitude_ouverture_ballons )
 	  	  		  {
 	  	  			  // fonction d'ouverture des ballons
 	  	  			 declenchement_structure_gonflable();
 
+	  	  			 HAL_Delay(2000);
 	  	  			 // abaissement des bras pour l'atterrissage
+
 	  	  		  }
 	  	  	  }
 
@@ -583,6 +699,7 @@ void Error_Handler(void)
   /* USER CODE BEGIN Error_Handler_Debug */
   /* User can add his own implementation to report the HAL error return state */
   __disable_irq();
+  result = FAIL;
   while (1)
   {
   }
