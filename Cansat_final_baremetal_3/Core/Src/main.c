@@ -113,6 +113,7 @@ char uart_tx_buffer[128];
 /********************/
 
 /******* flag *******/
+int flag_ballon = 0;
 /********************/
 
 /******* bmp280 *******/
@@ -635,9 +636,12 @@ int main(void)
 	  	  		  if(Cansat_altitude <= altitude_au_sol + altitude_ouverture_ballons )
 	  	  		  {
 	  	  			  // fonction d'ouverture des ballons
-
+	  	  			 if(flag_ballon<4)
+	  	  			 {
 	  	  			 declenchement_structure_gonflable();
-
+	  	  			 HAL_Delay(1000);
+	  	  			 flag_ballon++;
+	  	  			 }
 
 	  	  			 //HAL_Delay(5000);
 	  	  			 // abaissement des bras pour l'atterrissage
