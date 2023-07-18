@@ -200,6 +200,7 @@ int main(void)
   MX_TIM3_Init();
   MX_TIM4_Init();
   MX_USART1_UART_Init();
+  MX_I2C3_Init();
   /* USER CODE BEGIN 2 */
 
 
@@ -327,7 +328,7 @@ int main(void)
       * ********                       *********
       */
 
-     int Cansat_altitude = 0; //altitude du cansat calculée à partir de la pression
+     double Cansat_altitude = 0; //altitude du cansat calculée à partir de la pression
      pData_bmp280[0] = REG_ID;
 
      //SENSOR ADDRESS ACQUISITION
@@ -343,7 +344,8 @@ int main(void)
        	else
        	{
        		printf("bmp280 bad address \r\n");
-       		Error_Handler();
+       		result = FAIL;
+       		//Error_Handler();
        		//allumer la led rouge de l'initialisation loupée
        	}
 
@@ -371,15 +373,22 @@ int main(void)
     uint16_t gpio_value = 0;
     int Drop_flag = 0; // flag that indicates if the Cansat probe has been launch, in order to begin the missions
 
-    /**********                       *********
-     * ******** INITIALISATION Servos *********
-     * ********                       *********
+
+    /**********                      		     		  *********
+     * ******** INITIALISATION Servos structure gonflable *********
+     * ********                       		              *********
+     */
+
+    /**********                      		    *********
+     * ******** INITIALISATION Servos direction *********
+     * ********                       		    *********
      */
 
     int deploiement_bras_flag = 1;
     int altitude_ouverture_ballons = 15; // altitude à partir de laquelle on démarre l'opération
     									 // d'ouverture de la structure gonflable
     									 // à déterminer expérimentalement --> prendre en compte l'altitude locale
+    int altitude_au_sol = 600; // ?? à vérifier
 
     HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
     HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_2);
@@ -433,12 +442,14 @@ int main(void)
     // Si l'initialisation est complète, on allume la LED verte
     if(result == PASS)
     {
-    	//Activer un GPIO x1
+    	//Activer un GPIO a
+    	HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_0);
     }
     // Si l'initialisation a planté, on allume la LED rouge
     if(result == FAIL)
     {
-    	//Activer un autre GPIO x2
+    	//Activer un autre GPIO b
+    	HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_1);
     }
 
 
@@ -548,7 +559,7 @@ int main(void)
 	  	  			  	  		  {
 	  	  			  	  			if(HAL_TIM_Base_Start_IT(&htim3) != HAL_OK)
 	  	  			  	  			{
-	  	  			  	  				printf("defaut d'initialisation du tim3");    // initialisation du TIM3 pour
+	  	  			  	  				//printf("defaut d'initialisation du tim3");    // initialisation du TIM3 pour
 	  	  			  	  															  // lancer le programme toutes les secondes
 	  	  			  	  				result = FAIL;
 	  	  			  	  			}
@@ -621,13 +632,19 @@ int main(void)
 
 	  	  	    /*************** Mission 2 ouverture des ballons ***************/
 
-	  	  		  if(Cansat_altitude <= altitude_ouverture_ballons )
+	  	  		  if(Cansat_altitude <= altitude_au_sol + altitude_ouverture_ballons )
 	  	  		  {
 	  	  			  // fonction d'ouverture des ballons
+
 	  	  			 declenchement_structure_gonflable();
 
-	  	  			 HAL_Delay(2000);
+
+	  	  			 //HAL_Delay(5000);
 	  	  			 // abaissement des bras pour l'atterrissage
+	  	  			 /*
+	  	  			__HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_2, 1500);
+	  	  			__HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, 1500);
+	  	  			*/
 
 	  	  		  }
 	  	  	  }
@@ -702,6 +719,7 @@ void Error_Handler(void)
   result = FAIL;
   while (1)
   {
+	  HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_1);
   }
   /* USER CODE END Error_Handler_Debug */
 }

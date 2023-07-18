@@ -189,7 +189,7 @@ void declenchement_structure_gonflable(){
 	  HAL_TIM_PWM_Start(&htim4, TIM_CHANNEL_1);
 
 	  for(x=1000;x<2500;x=x+1){
-	  			  __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, x);
+	  			  __HAL_TIM_SET_COMPARE(&htim4, TIM_CHANNEL_1, x);
 
 	  		  }
 
