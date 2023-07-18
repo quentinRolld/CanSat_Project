@@ -158,11 +158,11 @@ int8_t bmp280_get_comp_pres_double(double *pressure, uint32_t uncomp_pres)
 
  double press_to_altitude(uint32_t pression_utile)
  {
-	 double z = 0;
-	 double p0 = 1016;
+	 double z = 0.0;
+	 double p0 = 1016.0;
 	 double g = 9.81;
-	 double Cp = 1006;
-	 double T0 = 30 + 273.15; // Température au sol !!!!! à compléter le jour du lancement !!!!
+	 double Cp = 1006.0;
+	 double T0 = 30.0 + 273.15; // Température au sol !!!!! à compléter le jour du lancement !!!!
 
 
 	 return (z = -2.0*Cp*T0/(7.0*g)*log(pression_utile/p0));

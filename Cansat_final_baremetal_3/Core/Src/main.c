@@ -389,7 +389,7 @@ int main(void)
     int altitude_ouverture_ballons = 15; // altitude à partir de laquelle on démarre l'opération
     									 // d'ouverture de la structure gonflable
     									 // à déterminer expérimentalement --> prendre en compte l'altitude locale
-    int altitude_au_sol = 600; // ?? à vérifier
+    int altitude_au_sol = 790; // ?? à vérifier
 
     HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
     HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_2);
