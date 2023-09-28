@@ -319,8 +319,8 @@ int main(void)
 
     //Position GPS cible : 43°13'18.7"N 0°03'10.0"W  --> données telles que décrites dans le règlement 2023
 
-     pDataCansat.GPS.latitude_Target = 43.2218611;
-     pDataCansat.GPS.longitude_Target = -0.05277777777777778;
+     pDataCansat.GPS.latitude_Target = 45.066664;
+     pDataCansat.GPS.longitude_Target = -1.04223;
 
 
 
@@ -329,7 +329,7 @@ int main(void)
       * ********                       *********
       */
 
-     double Cansat_altitude = 0; //altitude du cansat calculée à partir de la pression
+     double Cansat_altitude = 652.0; //altitude du cansat calculée à partir de la pression
      pData_bmp280[0] = REG_ID;
 
      //SENSOR ADDRESS ACQUISITION
